@@ -7,7 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permitions:
+    permissions:
       contents: write
     steps:
       - uses: actions/checkout@v2
