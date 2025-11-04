@@ -1,4 +1,64 @@
-site_name: My Docs
+site_name: Wuuuk's Blog
 
+nav:
+  - 首页: 'index.md'
+  - 算法竞赛:
+    - 算法模板:
+      - index: 算法竞赛/算法模板/index.md
+      - 数论: 算法竞赛/算法模板/数论.md
+      - 组合数学: 算法竞赛/算法模板/组合数学.md
+      - 线性代数: 算法竞赛/算法模板/线性代数.md
+      - 多项式: 算法竞赛/算法模板/多项式.md
+      - 几何: 算法竞赛/算法模板/几何.md
+      - 图论: 算法竞赛/算法模板/图论.md
+      - 数论: 算法竞赛/算法模板/树论.md
+      - 数据结构: 算法竞赛/算法模板/数据结构.md
+      - 字符串: 算法竞赛/算法模板/字符串.md
+      - 动态规划: 算法竞赛/算法模板/动态规划.md
+      - 杂项: 算法竞赛/算法模板/杂项.md
+
+markdown_extensions:
+  # 启用公式支持
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+# 如果你使用的是 Material 主题，需要额外添加以下配置
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 theme:
   name: material
+  
+  icon:
+    logo: material/github
+
+  language: zh
+
+  palette:
+
+    # Toggle light mode
+    - scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+    # Toggle dark mode
+    - scheme: slate
+      primary: grey
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+  features:
+    - navigation.top
+    - navigation.tabs
+    - navigation.indexes
+    - serach.hightlight
+    - content.tabs.link
+
+copyright: Copyright © 2020~2025 All Rights Reserves
+
