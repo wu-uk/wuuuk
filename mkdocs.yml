@@ -7,6 +7,7 @@ repo_url: https://github.com/wu-uk/wuuuk
 nav:
   - 首页: 'index.md'
   - 算法竞赛:
+    - index: CP/index.md
     - 算法模板:
       - index: CP/templates/index.md
       - 数论: CP/templates/数论.md
@@ -21,6 +22,7 @@ nav:
       - 动态规划: CP/templates/动态规划.md
       - 杂项: CP/templates/杂项.md
   - 课程:
+    - index: course/index.md
     - 数据结构:
       - index: course/DataStructure/index.md
       - 第一章作业: course/DataStructure/数据结构第一章作业.md
@@ -49,6 +51,8 @@ nav:
       - 第六次作业: course/ComputerNetwork/计算机网络第六次作业.md
       - 第七次作业: course/ComputerNetwork/计算机网络第七次作业.md
       - 第八次作业: course/ComputerNetwork/计算机网络第八次作业.md
+  - 项目:
+    - index: index.html
 
 markdown_extensions:
   # 启用公式支持
