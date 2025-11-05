@@ -4,18 +4,37 @@ nav:
   - 首页: 'index.md'
   - 算法竞赛:
     - 算法模板:
-      - index: 算法竞赛/算法模板/index.md
-      - 数论: 算法竞赛/算法模板/数论.md
-      - 组合数学: 算法竞赛/算法模板/组合数学.md
-      - 线性代数: 算法竞赛/算法模板/线性代数.md
-      - 多项式: 算法竞赛/算法模板/多项式.md
-      - 几何: 算法竞赛/算法模板/几何.md
-      - 图论: 算法竞赛/算法模板/图论.md
-      - 数论: 算法竞赛/算法模板/树论.md
-      - 数据结构: 算法竞赛/算法模板/数据结构.md
-      - 字符串: 算法竞赛/算法模板/字符串.md
-      - 动态规划: 算法竞赛/算法模板/动态规划.md
-      - 杂项: 算法竞赛/算法模板/杂项.md
+      - index: CP/templates/index.md
+      - 数论: CP/templates/数论.md
+      - 组合数学: CP/templates/组合数学.md
+      - 线性代数: CP/templates/线性代数.md
+      - 多项式: CP/templates/多项式.md
+      - 几何: CP/templates/几何.md
+      - 图论: CP/templates/图论.md
+      - 数论: CP/templates/树论.md
+      - 数据结构: CP/templates/数据结构.md
+      - 字符串: CP/templates/字符串.md
+      - 动态规划: CP/templates/动态规划.md
+      - 杂项: CP/templates/杂项.md
+  - 课程:
+    - 数据结构:
+      - 第一章作业: course/DataStructure/数据结构第一章作业.md
+      - 第二章作业: course/DataStructure/数据结构第二章作业.md
+      - 第二章实验: course/DataStructure/数据结构第二章实验.md
+      - 第三章作业: course/DataStructure/数据结构第三章作业.md
+      - 第三章实验1: course/DataStructure/数据结构第三章实验1.md
+      - 第三章实验2: course/DataStructure/数据结构第三章实验2.md
+      - 第四章作业: course/DataStructure/数据结构第四章作业.md
+      - 第五章作业: course/DataStructure/数据结构第五章作业.md
+      - 第五章实验报告: course/DataStructure/数据结构第五章实验报告.md
+      - 第六章作业: course/DataStructure/数据结构第六章作业.md
+      - 第六章实验1: course/DataStructure/数据结构第六章实验1.md
+      - 第六章实验2: course/DataStructure/数据结构第六章实验2.md
+      - 第七章作业: course/DataStructure/数据结构第七章作业.md
+      - 第七章实验: course/DataStructure/数据结构第七章实验.md
+      - 第八章作业: course/DataStructure/数据结构第八章作业.md
+      - 第九章作业: course/DataStructure/数据结构第九章作业.md
+      - 第十章作业: course/DataStructure/数据结构第十章作业.md
 
 markdown_extensions:
   # 启用公式支持
