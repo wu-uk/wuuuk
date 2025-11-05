@@ -40,6 +40,15 @@ nav:
       - 第八章作业: course/DataStructure/数据结构第八章作业.md
       - 第九章作业: course/DataStructure/数据结构第九章作业.md
       - 第十章作业: course/DataStructure/数据结构第十章作业.md
+    - 计算机网络:
+      - index: course/ComputerNetwork/index.md
+      - 第二次作业: course/ComputerNetwork/计算机网络第二次作业.md
+      - 第三次作业: course/ComputerNetwork/计算机网络第三次作业.md
+      - 第四次作业: course/ComputerNetwork/计算机网络第四次作业.md
+      - 第五次作业: course/ComputerNetwork/计算机网络第五次作业.md
+      - 第六次作业: course/ComputerNetwork/计算机网络第六次作业.md
+      - 第七次作业: course/ComputerNetwork/计算机网络第七次作业.md
+      - 第八次作业: course/ComputerNetwork/计算机网络第八次作业.md
 
 markdown_extensions:
   # 启用公式支持

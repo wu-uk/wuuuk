@@ -115,10 +115,6 @@ def process_markdown_file(md_path):
         print(f"[完成] 无需更改: {md_path}")            
         
 def run_full_scan():
-    if not os.path.isdir(DOCS_DIR):
-        print(f"[错误] 目录'{DOCS_DIR}'不存在")
-        print(f"请将此脚本放在与'docs'目录相同的级别运行。")
-        return
     print(f"开始扫描 '{DOCS_DIR}' 目录下的所有 .md 文件...")
     processed = 0
     for root, dirs, files in os.walk(DOCS_DIR):
@@ -133,7 +129,67 @@ def run_full_scan():
 def run_diff_scan():
     print("正在向 Git 查询已修改(M)或已添加(A)的 .md 文件...")
     try:
+        cmd = ['git', '-c', 'core.quotepath=false', 'diff', 'HEAD', '--name-only', '--diff-filter=AM']
+        result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', check=True)
+        changed_files = result.stdout.strip().splitlines()
+        if not changed_files:
+            print("Git 报告：没有找到自上次 commit 以来修改过的文件。")
+            print("如果你是想对 *未暂存*(unstaged)的文件生效，请先 'git add .'")
+            return
+        print(f"Git 找到 {len(changed_files)} 个变更文件。开始过滤 .md ...")
+        processed = 0
+        for file_path_str in changed_files:
+            print(file_path_str)
+            # "docs/course/ComputerNetwork/\350\256\241\347\256\227\346\234\272\347\275\221\347\273\234\347\254\254\345\205\255\346\254\241\344\275\234\344\270\232.md"
+            file_path = file_path_str.strip('"')
+            if file_path.startswith('docs') and file_path.endswith('.md'):
+                # file_path = DOCS_DIR + file_path.lstrip('docs')
+                file_path = file_path.replace('/', '\\')
+                print(file_path)
+                # D:\Project\NewBlog\docs\course\ComputerNetwork\\350\256\241\347\256\227\346\234\272\347\275\221\347\273\234\347\254\254\345\233\233\346\254\241\344\275\234\344\270\232.md
+                if os.path.exists(file_path):
+                    process_markdown_file(file_path)
+                    processed += 1
+        if processed == 0:
+            print(f"在 {len(changed_files)} 个变更文件中，没有找到 'docs/' 目录下的 .md 文件。")
         
+    except FileNotFoundError:
+        print("错误: 'git' 命令未找到。")
+        print("请确保你已安装 Git 并且它在你的系统 PATH 中。")
+        sys.exit(1)
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Git 命令执行失败 (Error code {e.returncode}):")
+        if e.stderr: print(e.stderr)
+        if e.stdout: print(e.stdout)
+        print("\n这通常发生在你 *还未进行过任何 commit* 的新仓库中。")
+        print("请先执行 'git add .' 和 'git commit -m \"initial commit\"'。")
+        sys.exit(1)
+    except Exception as e:
+        print(f"发生未知错误: {e}")
+        sys.exit(1)
+
+    print("\n--- 增量任务完成 ---")
+        
+def main():
+    parser = argparse.ArgumentParser(
+        description="自动修复 MkDocs 中的 Markdown 图片链接（下载或复制）。",
+        epilog="默认行为 (不带参数): 仅扫描 'git diff' 报告的已修改文件。"
+    )
+    parser.add_argument(
+        '-f', '--full',
+        action='store_true',  # 这意味着，如果参数存在，就设为 True
+        help="运行全量扫描，检查 'docs/' 下的 *所有* .md 文件，而不仅仅是 Git 变更文件。"
+    )
+    args = parser.parse_args()
+    if not os.path.isdir(DOCS_DIR):
+        print(f"[错误] 目录'{DOCS_DIR}'不存在")
+        print(f"请将此脚本放在与'docs'目录相同的级别运行。")
+        return 
+    if args.full:
+        run_full_scan()
+    else:
+        run_diff_scan()
 
 if __name__ == "__main__":
     main()
