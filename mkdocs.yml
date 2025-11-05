@@ -1,5 +1,9 @@
 site_name: Wuuuk's Blog
 
+site_url: https://wu-uk.github.io/wuuuk
+
+repo_url: https://github.com/wu-uk/wuuuk
+
 nav:
   - 首页: 'index.md'
   - 算法竞赛:
@@ -18,6 +22,7 @@ nav:
       - 杂项: CP/templates/杂项.md
   - 课程:
     - 数据结构:
+      - index: course/DataStructure/index.md
       - 第一章作业: course/DataStructure/数据结构第一章作业.md
       - 第二章作业: course/DataStructure/数据结构第二章作业.md
       - 第二章实验: course/DataStructure/数据结构第二章实验.md
@@ -79,5 +84,10 @@ theme:
     - serach.hightlight
     - content.tabs.link
 
-copyright: Copyright © 2020~2025 All Rights Reserves
+copyright: Copyright © 2020~2025 All Rights Reserved
+
+extra:
+  social:
+    - icon: fontawesome/solid/envelope  # 使用 FontAwesome 的信封图标
+      link: "mailto:wuyukai@bupt.edu.cn" # 你的邮箱地址
 
