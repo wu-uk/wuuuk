@@ -52,9 +52,9 @@ nav:
       - 第七次作业: course/ComputerNetwork/计算机网络第七次作业.md
       - 第八次作业: course/ComputerNetwork/计算机网络第八次作业.md
   - 项目:
-    - index: index.md
+    - index: project/index.md
     - LuoguAgent:
-      - index: index.md
+      - index: project/LuoguAgent/index.md
       - 爬虫: project/LuoguAgent/爬虫.md
 
 markdown_extensions:
