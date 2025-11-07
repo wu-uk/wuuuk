@@ -57,6 +57,7 @@ nav:
       - index: project/LuoguAgent/index.md
       - 爬虫: project/LuoguAgent/爬虫.md
       - Agent: project/LuoguAgent/agent.md
+      - 前端: project/LuoguAgent/streamlit.md
 
 markdown_extensions:
   # 启用公式支持
