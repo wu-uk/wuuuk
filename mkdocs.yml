@@ -51,6 +51,9 @@ nav:
       - 第六次作业: course/ComputerNetwork/计算机网络第六次作业.md
       - 第七次作业: course/ComputerNetwork/计算机网络第七次作业.md
       - 第八次作业: course/ComputerNetwork/计算机网络第八次作业.md
+    - 操作系统:
+      - index: course/OperatingSystem/index.md
+      - 第一次实验-进程遍历: course/OperatingSystem/操作系统第一次实验.md
   - 项目:
     - index: project/index.md
     - LuoguAgent:
