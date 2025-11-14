@@ -1,0 +1,3277 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://wu-uk.github.io/wuuuk/course/DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%85%AD%E7%AB%A0%E5%AE%9E%E9%AA%8C2/">
+      
+      
+        <link rel="prev" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%85%AD%E7%AB%A0%E5%AE%9E%E9%AA%8C1/">
+      
+      
+        <link rel="next" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%BD%9C%E4%B8%9A/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>第六章实验2 - Wuuuk's Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#huffman" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Wuuuk&#39;s Blog" class="md-header__button md-logo" aria-label="Wuuuk's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Wuuuk's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第六章实验2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/wu-uk/wuuuk" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CP/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  算法竞赛
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../project/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  项目
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Wuuuk&#39;s Blog" class="md-nav__button md-logo" aria-label="Wuuuk's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+
+    </a>
+    Wuuuk's Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/wu-uk/wuuuk" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CP/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法竞赛
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CP/templates/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法模板
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法模板
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E6%95%B0%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组合数学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E5%A4%9A%E9%A1%B9%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多项式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E5%87%A0%E4%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    几何
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E5%9B%BE%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E6%A0%91%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    字符串
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    动态规划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E6%9D%82%E9%A1%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    杂项
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据结构
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据结构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%80%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%BA%8C%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%89%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%AE%9E%E9%AA%8C1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章实验1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%AE%9E%E9%AA%8C2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章实验2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%9B%9B%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%BA%94%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%BA%94%E7%AB%A0%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章实验报告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%85%AD%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%85%AD%E7%AB%A0%E5%AE%9E%E9%AA%8C1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章实验1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章实验2
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章实验2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 需求分析
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 概要设计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 详细设计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 调试分析
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 用户使用说明
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 测试结果
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        比较解压后的文件和原文件内容
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对比压缩后的文件大小
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试2
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%83%E7%AB%A0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%85%AB%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B9%9D%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第九章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%8D%81%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第十章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ComputerNetwork/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E5%9B%9B%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E4%BA%94%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E5%85%AD%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E4%B8%83%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E5%85%AB%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../OperatingSystem/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    操作系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OperatingSystem/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一次实验-进程遍历
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OperatingSystem/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二次实验-进程同步
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Database/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统原理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据库系统原理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Database/%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关系代数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Database/SQL%E8%AF%AD%E8%A8%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL语言
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../project/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../project/LuoguAgent/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LuoguAgent
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LuoguAgent
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../project/LuoguAgent/%E7%88%AC%E8%99%AB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    爬虫
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../project/LuoguAgent/agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../project/LuoguAgent/streamlit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 需求分析
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 概要设计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 详细设计
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 调试分析
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 用户使用说明
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 测试结果
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        比较解压后的文件和原文件内容
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        对比压缩后的文件大小
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试2
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="huffman">题目： Huffman编码</h1>
+<hr />
+<h3 id="1">1. 需求分析</h3>
+<p><strong>任务描述</strong>： 
+将任意一个指定的文件进行哈夫曼编码，并以真正的二进制位生成一个二进制文件（压缩文件）；反过来，可将一个压缩文件解码还原为原来的文件。</p>
+<p><strong>输入/输出要求</strong>：  </p>
+<ul>
+<li>
+<p><strong>输入形式</strong>：运行参数，待压缩/解压文件地址，压缩/解压文件地址。</p>
+</li>
+<li>
+<p><strong>输出形式</strong>：压缩后的.huf文件。</p>
+</li>
+</ul>
+<p><strong>功能要求</strong>： </p>
+<ol>
+<li>对选定文件以二进制方式读入，一次读入1024字节。</li>
+<li>正确构建Huffman树并基于此进行压缩和解压。</li>
+</ol>
+<hr />
+<h3 id="2">2. 概要设计</h3>
+<p><strong>解决思路</strong>：  </p>
+<ol>
+<li>循环读入文件，统计字符频率。</li>
+<li>根据频率构建Huffman树。</li>
+<li>
+<p>根据Huffman树得到编码表。</p>
+</li>
+<li>
+<p>压缩时：</p>
+</li>
+<li>
+<p>将频率表写入文件头部。</p>
+</li>
+<li>
+<p>将编码后的字符按顺序写入文件。</p>
+</li>
+<li>
+<p>解压时：</p>
+</li>
+<li>
+<p>根据频率表建立Huffman树。</p>
+</li>
+<li>将Huffman树视作字典树，沿着字典树进行解码。</li>
+</ol>
+<p><strong>数据结构</strong>：  </p>
+<p>结构体绑定字符和频率。</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">ch</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ll</span><span class="w"> </span><span class="n">cnt</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">Info</span><span class="p">;</span>
+</code></pre></div>
+<p>二叉链表存储Huffman树。</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">BiTNode</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Info</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">BiTNode</span><span class="w"> </span><span class="o">*</span><span class="n">lc</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">rc</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">BiTNode</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">BiTree</span><span class="p">;</span>
+</code></pre></div>
+<p>二叉堆加速Huffman树的构建。</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Heap</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">BiTree</span><span class="w"> </span><span class="n">heap</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w">  </span><span class="c1">// 堆中元素个数，存储在 heap[1..size] 中</span>
+<span class="p">}</span><span class="w"> </span><span class="o">*</span><span class="n">PriorityQueue</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>模块关系</strong>：  </p>
+<ul>
+<li><strong>优先队列 / 小根堆</strong>：<code>init</code>、<code>_up</code>、<code>_down</code>、<code>push</code>、<code>pop</code>，为每次合并取出最小频次节点提供支持。</li>
+<li><strong>Huffman 树构建</strong>：<code>buildHuffmanTree</code>（创建所有叶子并两两合并）、<code>freeHuffmanTree</code>（释放整棵树）。</li>
+<li><strong>编码表生成</strong>：<code>encode</code> 根据树从根到叶子记录路径 0/1 保存到 <code>table[ch]</code>。</li>
+<li><strong>按位写入</strong>：<code>BitWriter</code> 的 <code>bw_init</code>、<code>bw_write_bit</code>、<code>bw_write_code</code>、<code>bw_flush</code>，把一串 <code>'0'/'1'</code> 字符写成真正的比特流。</li>
+<li><strong>按位读取</strong>：<code>BitReader</code> 的 <code>br_init</code>、<code>br_read_bit</code>，把文件读字节后拆分成一个一个比特。</li>
+<li><strong>压缩主逻辑</strong>：<code>compress_file</code>，从频次统计到树构造、编码表、写头、按位写正文。</li>
+<li><strong>解压主逻辑</strong>：<code>decompress_file</code>，从读头到重建树、按位读正文并沿树还原字节。</li>
+<li><strong>程序入口</strong>：<code>main</code> 负责解析命令行参数，决定调用“压缩”还是“解压”，并设置控制台编码。</li>
+</ul>
+<hr />
+<h3 id="3">3. 详细设计</h3>
+<p><strong>关键算法</strong>：  </p>
+<ol>
+<li>
+<p><strong><code>void swap(BiTree *x, BiTree *y)</code></strong></p>
+</li>
+<li>
+<p><strong>作用</strong>：交换两个 <code>BiTree</code> 指针（二叉树节点）的内容。</p>
+</li>
+<li>
+<p><strong>细节</strong>：在小根堆的上下调整过程中，用来交换堆数组里相邻元素的指针。</p>
+</li>
+<li>
+<p><strong>小根堆（PriorityQueue）相关函数</strong>
+    这组函数共同构成了一个基于数组的最小堆，用来每次取出当前频率最小的 Huffman 节点。</p>
+</li>
+<li>
+<p><strong><code>void init(PriorityQueue pq)</code></strong></p>
+<ul>
+<li><strong>作用</strong>：初始化一个空的优先队列（小根堆），把 <code>size</code> 设为 0。</li>
+</ul>
+</li>
+<li><strong><code>void _up(PriorityQueue pq, int i)</code></strong><ul>
+<li><strong>作用</strong>：向上调整索引为 <code>i</code> 的堆元素。</li>
+<li><strong>细节</strong>：如果 <code>heap[i]</code> 的 <code>cnt</code> (频次) 比其父节点更小，就一直交换直到堆性质恢复。</li>
+</ul>
+</li>
+<li><strong><code>void _down(PriorityQueue pq, int i)</code></strong><ul>
+<li><strong>作用</strong>：向下调整索引为 <code>i</code> 的堆元素。</li>
+<li><strong>细节</strong>：不断比较当前节点与它左右子节点的 <code>cnt</code>，把最小的浮到上面，直到 “父 ≤ 子” 满足小根堆条件。</li>
+</ul>
+</li>
+<li><strong><code>void push(PriorityQueue pq, BiTree x)</code></strong><ul>
+<li><strong>作用</strong>：把一个新的 Huffman 子树 <code>x</code> 插入堆中。</li>
+<li><strong>流程</strong>：先把 <code>x</code> 放到堆尾 (<code>heap[++size] = x</code>)，再调用 <code>_up</code> 保持堆序。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>BiTree pop(PriorityQueue pq)</code></strong></p>
+<ul>
+<li><strong>作用</strong>：从堆顶弹出当前最小频次的子树节点。</li>
+<li><strong>流程</strong>：取出 <code>heap[1]</code>（最小），把堆尾元素移到 <code>heap[1]</code>，<code>size--</code>，然后调用 <code>_down</code> 恢复小根堆。返回原来的堆顶指针。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>BiTree buildHuffmanTree(Info *arr, int n)</code></strong></p>
+</li>
+<li>
+<p><strong>作用</strong>：根据传入的 <code>Info</code> 数组（包含 <code>ch</code> 和 <code>cnt</code>）构造一棵 Huffman 树，并返回树根指针。</p>
+</li>
+<li>
+<p><strong>详细步骤</strong>：</p>
+<ol>
+<li>若 <code>n == 0</code> 返回 <code>NULL</code>。</li>
+<li>用 <code>malloc</code> 分配一个 <code>PriorityQueue</code>，调用 <code>init</code> 初始化。</li>
+<li>遍历 <code>arr[0..n-1]</code>，为每个 <code>Info</code> 新建一个 <code>BiTNode</code>（叶子），把 <code>data.ch = arr[i].ch</code>、<code>data.cnt = arr[i].cnt</code>，<code>lc=rc=NULL</code>，然后 <code>push</code> 入堆。</li>
+<li>当堆中元素数 <code>&gt;1</code> 时：<ul>
+<li><code>pop</code> 出两棵最小频次子树 <code>min</code>、<code>subMin</code>；</li>
+<li>新建一个父节点 <code>parent</code>，令 <code>parent-&gt;data.cnt = min-&gt;cnt + subMin-&gt;cnt</code>、<code>parent-&gt;data.ch = 0</code>（无实际字符），<code>parent-&gt;lc = min</code>、<code>parent-&gt;rc = subMin</code>；</li>
+<li><code>push(pq, parent)</code>，把它放回堆。</li>
+</ul>
+</li>
+<li>最终 <code>pop(pq)</code> 就是 Huffman 树的根。释放堆本身的内存后返回根指针。</li>
+</ol>
+</li>
+<li>
+<p><strong><code>void freeHuffmanTree(BiTree root)</code></strong></p>
+</li>
+<li>
+<p><strong>作用</strong>：递归释放整棵 Huffman 树所占用的内存。</p>
+</li>
+<li>
+<p><strong>流程</strong>：先递归释放左子树和右子树，再 <code>free(root)</code> 本节点。</p>
+</li>
+<li>
+<p><strong><code>void encode(BiTree root, char sign[], int p)</code></strong></p>
+</li>
+<li>
+<p><strong>作用</strong>：根据已构造好的 Huffman 树 <code>root</code>，生成从根到每个叶子节点（每个字符）的比特串编码，并把它保存到全局 <code>table[ch]</code> 中。</p>
+</li>
+<li><strong>参数含义</strong>：<ul>
+<li><code>root</code>：当前子树的根节点。</li>
+<li><code>sign[]</code>：用来累积路径上写入的 <code>'0'</code> 或 <code>'1'</code>。</li>
+<li><code>p</code>：当前累积到 <code>sign[p-1]</code> 的长度。</li>
+</ul>
+</li>
+<li>
+<p><strong>实现细节</strong>：</p>
+<ol>
+<li>如果 <code>root == NULL</code> 直接返回。</li>
+<li>若当前节点同时 <code>lc == NULL &amp;&amp; rc == NULL</code>，说明这是叶子：<ul>
+<li>若 <code>p == 0</code>（仅有一个符号），则强制给它编码 <code>"0"</code>；</li>
+<li>否则把已经累积在 <code>sign</code> 中的比特串复制到 <code>table[root-&gt;data.ch]</code>。</li>
+</ul>
+</li>
+<li>如果有左子节点，就把 <code>sign[p] = '0'</code>、<code>sign[p+1] = '\0'</code>，递归 <code>encode(root-&gt;lc, sign, p+1)</code>；</li>
+<li>如果有右子节点，就把 <code>sign[p] = '1'</code>、<code>sign[p+1] = '\0'</code>，递归 <code>encode(root-&gt;rc, sign, p+1)</code>。</li>
+</ol>
+</li>
+<li>
+<p><strong>BitWriter 系列函数（按位写入）</strong>
+    用于把“字符对应的比特串”真正“打包到字节流”中。</p>
+</li>
+<li>
+<p><strong><code>void bw_init(BitWriter *bw, FILE *fp)</code></strong></p>
+<ul>
+<li><strong>作用</strong>：初始化一个 <code>BitWriter</code>，把 <code>fp</code> 赋给 <code>bw-&gt;fp</code>，<code>buffer=0</code>，<code>bitcount=0</code>。</li>
+</ul>
+</li>
+<li><strong><code>void bw_write_bit(BitWriter *bw, int bit)</code></strong><ul>
+<li><strong>作用</strong>：向 <code>BitWriter</code> 中写入一个比特（<code>0</code> 或 <code>1</code>）。</li>
+<li><strong>流程</strong>：</li>
+<li><code>bw-&gt;buffer &lt;&lt;= 1;</code> 左移一位，把当前 buffer 的高位空出来；</li>
+<li><code>if (bit) bw-&gt;buffer |= 1;</code> 如果要写入 <code>1</code>，就把最低位设为 1。</li>
+<li><code>bw-&gt;bitcount++</code>；如果 <code>bitcount == 8</code>，说明 <code>buffer</code> 已填满 8 个比特，就 <code>fputc(buffer)</code> 写成一个字节到 <code>fp</code>，然后 <code>buffer=0; bitcount=0;</code>。</li>
+</ul>
+</li>
+<li><strong><code>void bw_write_code(BitWriter *bw, const char *code)</code></strong><ul>
+<li><strong>作用</strong>：把一个以 <code>'0'</code>/<code>'1'</code> 组成的 ASCII 字符串 <code>code</code> （比如 <code>"01011"</code>）中的每个字符，依次调用 <code>bw_write_bit</code> 输出比特。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>void bw_flush(BitWriter *bw)</code></strong></p>
+<ul>
+<li><strong>作用</strong>：在写入完成后，把 <code>buffer</code> 中尚未凑满 8 位的那部分“左移补 0”并写出一个字节。</li>
+<li><strong>细节</strong>：如果 <code>bitcount &gt; 0</code>，则 <code>buffer &lt;&lt;= (8 - bitcount)</code>，使低位补 0，把这个字节 <code>fputc</code> 输出，然后 <code>buffer=0，bitcount=0</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>BitReader 系列函数（按位读取）</strong>
+    用于解压时把压缩文件的比特流拆分回一位一位，供 Huffman 树遍历使用。</p>
+</li>
+<li>
+<p><strong><code>void br_init(BitReader *br, FILE *fp)</code></strong></p>
+<ul>
+<li><strong>作用</strong>：初始化一个 <code>BitReader</code>，把 <code>fp</code> 赋给 <code>br-&gt;fp</code>，<code>buffer = 0</code>，<code>bitcount = 0</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>int br_read_bit(BitReader *br)</code></strong></p>
+<ul>
+<li><strong>作用</strong>：从 <code>BitReader</code> 中读取一个比特（返回 <code>0</code> 或 <code>1</code>），如果已到文件末尾且无更多数据，则返回 <code>-1</code>。</li>
+<li><strong>流程</strong>：</li>
+<li>如果 <code>bitcount == 0</code>，说明当前 <code>buffer</code> 里没有可读的比特，就 <code>fgetc(fp)</code> 再读一个字节到 <code>buffer</code>，并把 <code>bitcount = 8</code>；</li>
+<li>从 <code>buffer</code> 的最高位取出 1 位：<code>int bit = (buffer &amp; 0x80) ? 1 : 0;</code>，再把 <code>buffer &lt;&lt;= 1; bitcount--;</code>；返回 <code>bit</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>void compress_file(const char *infile, const char *outfile)</code></strong></p>
+</li>
+<li>
+<p><strong>作用</strong>：把原文件 <code>infile</code> 按照 Huffman 编码压缩，输出到 <code>outfile</code>。</p>
+</li>
+<li>
+<p><strong>主要步骤</strong>：</p>
+<ol>
+<li><strong>统计频次</strong>：打开 <code>infile</code>，逐块读取到 <code>unsigned char buffer[1024]</code> 中，累加 <code>cnt[buffer[i]]++</code>。</li>
+<li>把 <code>cnt[i] &gt; 0</code> 的字节封装到 <code>Info signs[]</code> 中，计算出一共有 <code>tot</code> 种字符。</li>
+<li><strong>构建 Huffman 树</strong>：调用 <code>buildHuffmanTree(signs, tot)</code> 获得 <code>HuffmanTree</code>。</li>
+<li><strong>生成编码表</strong>：清空全局 <code>table</code>，再做一次 <code>encode(HuffmanTree, sign, 0)</code>，让 <code>table[ch]</code> 得到从根到该叶子的比特串（形如 <code>"01011"</code>）。</li>
+<li><strong>计算总比特数 &amp; padding</strong>：遍历 <code>i=0..255</code>，<code>if (cnt[i]&gt;0) total_bits += cnt[i] * strlen(table[i])</code>；然后 <code>padding = (8 - (total_bits % 8)) % 8</code>。</li>
+<li><strong>写压缩头</strong>：打开 <code>outfile</code>（<code>fopen(..., "wb")</code>），先 <code>for (i=0..255) fwrite(&amp;cnt[i], sizeof(ll), 1, fout)</code>，再 <code>fwrite(&amp;padding, 1, 1, fout)</code>。此时头部固定占用 <code>256×8 + 1 = 2049</code> 字节。</li>
+<li><strong>按位写正文</strong>：用 <code>BitWriter bw; bw_init(&amp;bw, fout);</code>，回到 <code>infile</code> 头，每次 <code>fgetc(fin)</code> 得到 <code>ch</code>，调用 <code>bw_write_code(&amp;bw, table[ch])</code>，最后调用 <code>bw_flush(&amp;bw)</code> 把末尾不满 8 位的剩余比特写出。</li>
+<li>关闭文件，释放 <code>HuffmanTree</code>、<code>signs[]</code>，并在屏幕打印“压缩完成”的信息。</li>
+</ol>
+</li>
+<li>
+<p><strong><code>void decompress_file(const char *infile, const char *outfile)</code></strong></p>
+</li>
+<li>
+<p><strong>作用</strong>：把压缩文件 <code>infile</code> 解压回原始内容，输出到 <code>outfile</code>。</p>
+</li>
+<li>
+<p><strong>主要步骤</strong>：</p>
+<ol>
+<li><strong>读取压缩头</strong>：打开 <code>infile</code>（<code>"rb"</code>），先 <code>for (i=0..255) fread(&amp;cnt[i], sizeof(ll), 1, fin)</code> 读回频率表；再 <code>fread(&amp;padding, 1, 1, fin)</code> 读回 <code>padding</code>。</li>
+<li><strong>计算原始字节总数</strong>：<code>sum_cnt = sum(cnt[i] for i=0..255)</code>。</li>
+<li><strong>重建 Huffman 树</strong>：与压缩时一致，把 <code>cnt[i]&gt;0</code> 的字节封装到 <code>signs[]</code> 中，调用 <code>buildHuffmanTree(signs, tot)</code> 得到 <code>HuffmanTree</code>；（可选）再用 <code>encode(...)</code> 重新生成 <code>table</code>，但真正解码时并不需要 <code>table</code>，只要用树本身遍历即可。</li>
+<li><strong>按位读正文并还原</strong>：打开 <code>outfile</code>（<code>"wb"</code>），初始化 <code>BitReader br; br_init(&amp;br, fin);</code>，令 <code>BiTree node = HuffmanTree; written = 0;</code><ul>
+<li>循环 <code>while (written &lt; sum_cnt)</code>：</li>
+<li><code>bit = br_read_bit(&amp;br)</code>，如果 <code>bit == -1</code> 报错结束；</li>
+<li><code>node = (bit == 0 ? node-&gt;lc : node-&gt;rc);</code></li>
+<li>如果 <code>node</code> 是叶子（即 <code>node-&gt;lc==NULL &amp;&amp; node-&gt;rc==NULL</code>），令 <code>fputc(node-&gt;data.ch, fout); written++; node = HuffmanTree;</code></li>
+<li>循环直到写出 <code>sum_cnt</code> 个字节。</li>
+</ul>
+</li>
+<li>关闭文件，释放 <code>HuffmanTree</code>、<code>signs[]</code>，并打印 “解压完成” 信息。</li>
+</ol>
+</li>
+<li>
+<p><strong><code>void print_usage(const char *progname)</code></strong></p>
+<ul>
+<li>
+<p><strong>作用</strong>：当命令行参数不符合预期时，在标准错误上打印程序用法提示。</p>
+</li>
+<li>
+<p><strong>内容</strong>：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>用法：
+  压缩：progname -c 原始文件路径 压缩后文件路径
+  解压：progname -d 压缩文件路径 解压后文件路径
+</code></pre></div>
+</li>
+<li>
+<p><strong><code>int main(int argc, char *argv[])</code></strong></p>
+<ul>
+<li><strong>作用</strong>：程序入口，根据命令行参数决定“压缩”还是“解压”，或打印用法。</li>
+<li><strong>主要流程</strong>：</li>
+<li>调用 <code>SetConsoleOutputCP(CP_UTF8); SetConsoleCP(CP_UTF8);</code>，使 Windows 控制台以 UTF-8 模式进行输入/输出，以保证中文提示正常显示。</li>
+<li>检查 <code>argc != 4</code>，如果不等于 4，就调用 <code>print_usage(argv[0])</code> 并返回 <code>1</code>。</li>
+<li>如果 <code>strcmp(argv[1], "-c") == 0</code>，就调用 <code>compress_file(argv[2], argv[3])</code>；
+      如果 <code>strcmp(argv[1], "-d") == 0</code>，就调用 <code>decompress_file(argv[2], argv[3])</code>；否则再次打印用法并返回 <code>1</code>。</li>
+<li>最后返回 <code>0</code>。</li>
+</ul>
+</li>
+</ol>
+<p><strong>流程图</strong>：  </p>
+<ul>
+<li>小根堆</li>
+</ul>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    A[&quot;开始&quot;] --&gt; B[&quot;初始化一个空堆，size = 0&quot;]
+    B --&gt; C{&quot;执行操作类型？&quot;}
+    C --&gt;|&quot;插入(push)&quot;| D[&quot;将新节点放到堆尾&quot;]
+    D --&gt; E[&quot;向上调整：如果当前节点频次小于父节点，交换并继续向上&quot;]
+    E --&gt; F[&quot;完成插入操作，返回&quot;]
+    C --&gt;|&quot;弹出(pop)&quot;| G{&quot;堆是否为空？&quot;}
+    G --&gt;|&quot;是&quot;| H[&quot;返回空 或 报错&quot;]
+    G --&gt;|&quot;否&quot;| I[&quot;取出堆顶（最小频次）&quot;]
+    I --&gt; J[&quot;将堆尾元素移到堆顶，size--&quot;]
+    J --&gt; K[&quot;向下调整：与子节点比较，选小者交换并继续向下&quot;]
+    K --&gt; L[&quot;返回原堆顶节点&quot;]
+</code></pre></div>
+<ul>
+<li>构建 Huffman 树</li>
+</ul>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    A[&quot;开始构建 Huffman 树&quot;] --&gt; B[&quot;准备一个小根堆&quot;]
+    B --&gt; C[&quot;把所有出现过的字符（叶子节点）按频次插入堆中&quot;]
+    C --&gt; D{&quot;堆中元素&gt;1？&quot;}
+    D --&gt;|&quot;是&quot;| E[&quot;弹出两个最小频次子树 A、B&quot;]
+    E --&gt; F[&quot;创建一个新内部节点 P，频次 = A与B的频次之和，左子树指向 A，右子树指向 B&quot;]
+    F --&gt; G[&quot;将新节点 P 插入堆&quot;]
+    G --&gt; D
+    D --&gt;|&quot;否&quot;| H[&quot;堆中只剩一个节点，将其作为 Huffman 树的根&quot;]
+    H --&gt; I[&quot;释放堆结构，返回根节点&quot;]
+</code></pre></div>
+<ul>
+<li>编码</li>
+</ul>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    A[&quot;开始生成编码表&quot;] --&gt; B[&quot;从 Huffman 树根节点出发，路径字符串 sign = \&quot;\&quot;&quot;]
+    B --&gt; C{&quot;当前节点是否为空？&quot;}
+    C --&gt;|&quot;是&quot;| D[&quot;直接返回&quot;]
+    C --&gt;|&quot;否&quot;| E{&quot;当前节点是否为叶子？&quot;}
+    E --&gt;|&quot;是&quot;| F[&quot;如果路径长度为 0（仅一个符号），则赋码“0”；否则将当前路径字符串保存到对应字符的编码表&quot;]
+    F --&gt; G[&quot;返回上一层&quot;]
+    E --&gt;|&quot;否&quot;| H{&quot;是否有左子树？&quot;}
+    H --&gt;|&quot;是&quot;| I[&quot;在路径尾追加 &#39;0&#39;，递归访问左子树&quot;]
+    I --&gt; J[&quot;返回时恢复路径字符串长度&quot;]
+    H --&gt;|&quot;否&quot;| J
+    J --&gt; K{&quot;是否有右子树？&quot;}
+    K --&gt;|&quot;是&quot;| L[&quot;在路径尾追加 &#39;1&#39;，递归访问右子树&quot;]
+    L --&gt; M[&quot;返回时恢复路径字符串长度&quot;]
+    K --&gt;|&quot;否&quot;| N[&quot;返回上一层&quot;]
+</code></pre></div>
+<ul>
+<li>压缩</li>
+</ul>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    A[&quot;开始压缩&quot;] --&gt; B[&quot;打开原始文件，若失败则报错并退出&quot;]
+    B --&gt; C[&quot;读取文件，统计每个字节的出现频次到 cnt[]&quot;]
+    C --&gt; D[&quot;回到文件开头，构造 Info 数组（包含字符和频次）&quot;]
+    D --&gt; E[&quot;调用 buildHuffmanTree 构建 Huffman 树&quot;]
+    E --&gt; F[&quot;初始化编码表，将表置空&quot;]
+    F --&gt; G[&quot;递归生成每个字符的比特串编码到编码表 table&quot;]
+    G --&gt; H[&quot;计算所有字符编码后的总比特数 total_bits&quot;]
+    H --&gt; I[&quot;根据 total_bits 计算末尾补零的位数 padding&quot;]
+    I --&gt; J[&quot;打开输出文件，若失败则报错并退出&quot;]
+    J --&gt; K[&quot;先写入 256 个频次值（long long 数组）&quot;]
+    K --&gt; L[&quot;再写入 1 字节的 padding 信息&quot;]
+    L --&gt; M[&quot;初始化 BitWriter 以便按位写入&quot;]
+    M --&gt; N[&quot;回到原始文件开头&quot;]
+    N --&gt; O{&quot;读取一个字节 ch？&quot;}
+    O --&gt;|&quot;是&quot;| P[&quot;查表得到 ch 的比特串，按比特写入 BitWriter&quot;]
+    P --&gt; O
+    O --&gt;|&quot;否&quot;| Q[&quot;flush BitWriter，将剩余位填充后写出&quot;]
+    Q --&gt; R[&quot;关闭输入/输出文件&quot;]
+    R --&gt; S[&quot;释放 Huffman 树等资源&quot;]
+    S --&gt; T[&quot;打印“压缩完成”信息并返回&quot;]
+</code></pre></div>
+<ul>
+<li>解压</li>
+</ul>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    A[&quot;开始解压&quot;] --&gt; B[&quot;打开压缩文件，若失败则报错并退出&quot;]
+    B --&gt; C[&quot;依次读取 256 个频次值到 cnt[]&quot;]
+    C --&gt; D[&quot;读取 1 字节 padding&quot;]
+    D --&gt; E[&quot;计算原始文件的总字节数 sum_cnt = Σ cnt[i]&quot;]
+    E --&gt; F[&quot;构造 Info 数组，包含出现过的字符及其频次&quot;]
+    F --&gt; G[&quot;调用 buildHuffmanTree 重建 Huffman 树&quot;]
+    G --&gt; H[&quot;打开输出文件，若失败则报错并退出&quot;]
+    H --&gt; I[&quot;初始化 BitReader 以便按比特读取&quot;]
+    I --&gt; J[&quot;设置写出计数 written = 0，从树根 node = root&quot;]
+    J --&gt; K{&quot;written &lt; sum_cnt？&quot;}
+    K --&gt;|&quot;否&quot;| L[&quot;关闭文件，释放资源，打印“解压完成”并返回&quot;]
+    K --&gt;|&quot;是&quot;| M[&quot;从 BitReader 中读取一个比特 bit&quot;]
+    M --&gt; N{&quot;bit 是否为 -1 （结束）？&quot;}
+    N --&gt;|&quot;是&quot;| O[&quot;报错“比特流意外结束”，退出循环&quot;]
+    N --&gt;|&quot;否&quot;| P[&quot;如果 bit=0，则 node=node-&gt;左子树；否则 node=node-&gt;右子树&quot;]
+    P --&gt; Q{&quot;node 是否到达叶子？&quot;}
+    Q --&gt;|&quot;否&quot;| K
+    Q --&gt;|&quot;是&quot;| R[&quot;输出 node 对应的字符到文件；written++; 回到树根 node=root&quot;]
+    R --&gt; K
+</code></pre></div>
+<p><strong>函数调用关系图</strong>：</p>
+<div class="highlight"><pre><span></span><code>flowchart LR
+    main --&gt; print_usage
+    main --&gt; compress_file
+    main --&gt; decompress_file
+
+    compress_file --&gt; buildHuffmanTree
+    compress_file --&gt; encode
+    compress_file --&gt; bw_init
+    compress_file --&gt; bw_write_code
+    compress_file --&gt; bw_flush
+    compress_file --&gt; freeHuffmanTree
+
+    decompress_file --&gt; buildHuffmanTree
+    decompress_file --&gt; br_init
+    decompress_file --&gt; br_read_bit
+    decompress_file --&gt; freeHuffmanTree
+
+    buildHuffmanTree --&gt; init
+    buildHuffmanTree --&gt; push
+    buildHuffmanTree --&gt; pop
+
+    push --&gt; _up
+
+    pop --&gt; _down
+</code></pre></div>
+<p><strong>调用关系说明</strong>：</p>
+<ul>
+<li><strong>主程序 <code>main</code></strong></li>
+<li>根据第一个参数是 <code>-c</code>（压缩）还是 <code>-d</code>（解压）来分支：<ul>
+<li><code>-c</code> → 调用 <code>compress_file(infile, outfile)</code></li>
+<li><code>-d</code> → 调用 <code>decompress_file(infile, outfile)</code></li>
+</ul>
+</li>
+<li><strong>压缩流程（<code>compress_file</code>）</strong></li>
+<li>先用 <code>fopen</code>/<code>fread</code> 统计频次到 <code>cnt[]</code></li>
+<li>将非零频次封装为 <code>Info signs[]</code>，调用 <code>buildHuffmanTree</code> 构造 Huffman 树</li>
+<li>调用 <code>encode</code> 生成 <code>table[ch]</code>（按 <code>sign[]</code> 递归下去产生比特串）</li>
+<li>计算 <code>total_bits</code> 与 <code>padding</code></li>
+<li>打开输出文件，写入 256×<code>cnt[i]</code> + 1×<code>padding</code></li>
+<li>用 <code>BitWriter</code>（<code>bw_init</code>、<code>bw_write_code</code>、<code>bw_flush</code>）按位写真正的 Huffman 比特流</li>
+<li>释放树与中间数组</li>
+<li><strong>解压流程（<code>decompress_file</code>）</strong></li>
+<li>先用 <code>fopen</code>/<code>fread</code> 读回 256 个 <code>cnt[i]</code> + 1 个 <code>padding</code></li>
+<li>计算 <code>sum_cnt = ∑ cnt[i]</code></li>
+<li>将非零频次封装为 <code>Info signs[]</code>，调用 <code>buildHuffmanTree</code> 重建 Huffman 树</li>
+<li>打开输出文件，初始化 <code>BitReader</code>（<code>br_init</code>）</li>
+<li>循环 <code>br_read_bit</code>，沿树从根到叶子遍历，遇到叶子则 <code>fputc</code> 输出一个字节，直到写满 <code>sum_cnt</code> 个字节</li>
+<li>释放树与中间数组</li>
+</ul>
+<hr />
+<h3 id="4">4. 调试分析</h3>
+<p><strong>问题与解决</strong>：  </p>
+<ol>
+<li>对于C语言文件输入输出不太掌握，通过大模型了解了相关的语句和用法。</li>
+<li>对于二叉堆的实现不太了解，在OI-wiki上找到了相关资料。</li>
+<li>一开始没有考虑到字符信息，只统计了频次，发现这样在后续编码会很麻烦，设计了结构体将二者绑定。</li>
+<li>对于只有单个字符不断重复的文件，遍历Huffman树时会出现问题，通过特殊判断解决。</li>
+</ol>
+<p><strong>改进方向</strong>：  </p>
+<ul>
+<li>判断文件类型，如果是已经压缩过的文件，不再进行压缩。</li>
+<li>判断文件大小，如果文件很小，写入频次表占用的空间开销更大，则不进行压缩。</li>
+</ul>
+<hr />
+<h3 id="5">5. 用户使用说明</h3>
+<p><strong>运行环境</strong>：<code>GCC 13.2.0</code></p>
+<div class="highlight"><pre><span></span><code>用法：
+  压缩：程序路径 -c 原始文件路径 压缩后文件路径
+  解压：程序路径 -d 压缩文件路径 解压后文件路径
+</code></pre></div>
+<p><strong>输入示例</strong>：  </p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">D</span><span class="p">:\</span><span class="n">wyk</span><span class="p">\</span><span class="n">Study</span><span class="p">\</span><span class="n">DataStructure</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">compress</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="p">.\</span><span class="n">kmp</span><span class="p">.</span><span class="n">c</span> <span class="p">.\</span><span class="n">kmp</span><span class="p">.</span><span class="n">huf</span>  
+</code></pre></div>
+<p><strong>输出示例</strong>：  </p>
+<div class="highlight"><pre><span></span><code>压缩完成：&quot;.\kmp.c&quot; → &quot;.\kmp.huf&quot;
+原始字节总数 = 496，压缩后比特流总位数 = 2153，padding = 7
+，压缩后字节总数 = 270
+</code></pre></div>
+<hr />
+<h3 id="6">6. 测试结果</h3>
+<hr />
+<h3 id="1_1">测试1</h3>
+<p>输入1：</p>
+<div class="highlight"><pre><span></span><code>PS D:\wyk\Study\DataStructure&gt; .\compress.exe -c .\kmp.c .\kmp.huf  
+</code></pre></div>
+<p>输出1：</p>
+<div class="highlight"><pre><span></span><code>压缩完成：&quot;.\kmp.c&quot; → &quot;.\kmp.huf&quot;
+原始字节总数 = 496，压缩后比特流总位数 = 2153，padding = 7
+，压缩后字节总数 = 270
+</code></pre></div>
+<p>输入2：</p>
+<div class="highlight"><pre><span></span><code>PS D:\wyk\Study\DataStructure&gt; .\compress.exe -d .\kmp.huf .\kmp.cpp
+</code></pre></div>
+<p>输出2：</p>
+<div class="highlight"><pre><span></span><code>解压完成：&quot;.\kmp.huf&quot; → &quot;.\kmp.cpp&quot;
+共还原原始字节数 = 496
+</code></pre></div>
+<h4 id="_1">比较解压后的文件和原文件内容</h4>
+<p><strong>kmp.c</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">get_nextval</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">T</span><span class="p">[],</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nextval</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">nextval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">++</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="w"> </span><span class="n">nextval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">nextval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextval</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextval</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">t</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">};</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">nextval</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="w">    </span><span class="n">get_nextval</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">nextval</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>kmp.cpp</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">get_nextval</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">T</span><span class="p">[],</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nextval</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">nextval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">++</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="w"> </span><span class="n">nextval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">nextval</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextval</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextval</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">t</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">};</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">nextval</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="w">    </span><span class="n">get_nextval</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">nextval</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>内容完全一致。</p>
+<h4 id="_2">对比压缩后的文件大小</h4>
+<p><img alt="image-20250604140251321" src="../images/image-20250604140251321.png" /></p>
+<p><img alt="image-20250604140345606" src="../images/image-20250604140345606.png" /></p>
+<p>发现压缩后文件反而变大，这是由于kmp.c太小，写入频率表占用的空间反而更大。</p>
+<h3 id="2_1">测试2</h3>
+<p>生成1GB全0二进制文件</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">D</span><span class="p">:\</span><span class="n">wyk</span><span class="p">\</span><span class="n">Study</span><span class="p">\</span><span class="n">DataStructure</span><span class="p">&gt;</span> <span class="n">fsutil</span> <span class="n">file</span> <span class="n">createnew</span> <span class="p">.\</span><span class="n">big</span><span class="p">.</span><span class="n">bin</span> <span class="n">1073741824</span>             
+<span class="n">已创建文件</span> <span class="n">D</span><span class="p">:\</span><span class="n">wyk</span><span class="p">\</span><span class="n">Study</span><span class="p">\</span><span class="n">DataStructure</span><span class="p">\</span><span class="n">big</span><span class="p">.</span><span class="n">bin</span>
+</code></pre></div>
+<p>压缩</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">D</span><span class="p">:\</span><span class="n">wyk</span><span class="p">\</span><span class="n">Study</span><span class="p">\</span><span class="n">DataStructure</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">compress</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="p">.\</span><span class="n">big</span><span class="p">.</span><span class="n">bin</span> <span class="p">.\</span><span class="n">big</span><span class="p">.</span><span class="n">huf</span>
+<span class="n">压缩完成</span><span class="err">：</span><span class="s2">&quot;.\big.bin&quot;</span> <span class="err">→</span> <span class="s2">&quot;.\big.huf&quot;</span>
+<span class="n">原始字节总数</span> <span class="p">=</span> <span class="n">1073741824</span><span class="err">，</span><span class="n">压缩后比特流总位数</span> <span class="p">=</span> <span class="n">1073741824</span><span class="err">，</span><span class="n">padding</span> <span class="p">=</span> <span class="n">0</span>
+<span class="err">，</span><span class="n">压缩后字节总数</span> <span class="p">=</span> <span class="n">134217728</span>
+</code></pre></div>
+<p>解压</p>
+<div class="highlight"><pre><span></span><code><span class="nb">PS </span><span class="n">D</span><span class="p">:\</span><span class="n">wyk</span><span class="p">\</span><span class="n">Study</span><span class="p">\</span><span class="n">DataStructure</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">compress</span><span class="p">.</span><span class="n">exe</span> <span class="n">-d</span> <span class="p">.\</span><span class="n">big</span><span class="p">.</span><span class="n">huf</span> <span class="p">.\</span><span class="n">big2</span><span class="p">.</span><span class="n">bin</span>
+<span class="n">解压完成</span><span class="err">（</span><span class="n">单符号优化</span><span class="err">）：</span><span class="s2">&quot;.\big.huf&quot;</span> <span class="err">→</span> <span class="s2">&quot;.\big2.bin&quot;</span><span class="err">，</span><span class="n">写入</span> <span class="n">1073741824</span> <span class="n">字节</span>
+</code></pre></div>
+<p>对比<code>big.bin</code>与<code>big.huf</code>的大小：</p>
+<p><img alt="image-20250604142439328" src="../images/image-20250604142439328.png" /></p>
+<p><img alt="image-20250604142500621" src="../images/image-20250604142500621.png" /></p>
+<p>1GB的文件被压缩到了128MB，可以看到，对于字符频率差异显著的文件，压缩率很高。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 Wuuuk | wuyukai@bupt.edu.cn
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="mailto:wuyukai@bupt.edu.cn" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.top", "navigation.tabs", "navigation.indexes", "serach.hightlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

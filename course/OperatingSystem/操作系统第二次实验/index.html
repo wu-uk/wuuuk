@@ -1,0 +1,3972 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://wu-uk.github.io/wuuuk/course/OperatingSystem/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%AE%9E%E9%AA%8C/">
+      
+      
+        <link rel="prev" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%9E%E9%AA%8C/">
+      
+      
+        <link rel="next" href="../../Database/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>第二次实验-进程同步 - Wuuuk's Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Wuuuk&#39;s Blog" class="md-header__button md-logo" aria-label="Wuuuk's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Wuuuk's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第二次实验-进程同步
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/wu-uk/wuuuk" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CP/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  算法竞赛
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  课程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../project/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  项目
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Wuuuk&#39;s Blog" class="md-nav__button md-logo" aria-label="Wuuuk's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+
+    </a>
+    Wuuuk's Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/wu-uk/wuuuk" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CP/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法竞赛
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../CP/templates/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法模板
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法模板
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E6%95%B0%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组合数学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E5%A4%9A%E9%A1%B9%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多项式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E5%87%A0%E4%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    几何
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E5%9B%BE%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E6%A0%91%E8%AE%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    字符串
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    动态规划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CP/templates/%E6%9D%82%E9%A1%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    杂项
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../DataStructure/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据结构
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据结构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%80%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%BA%8C%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二章实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%89%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%AE%9E%E9%AA%8C1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章实验1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%AE%9E%E9%AA%8C2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三章实验2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%9B%9B%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%BA%94%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%BA%94%E7%AB%A0%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五章实验报告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%85%AD%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%85%AD%E7%AB%A0%E5%AE%9E%E9%AA%8C1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章实验1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%85%AD%E7%AB%A0%E5%AE%9E%E9%AA%8C2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六章实验2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B8%83%E7%AB%A0%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七章实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%85%AB%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E4%B9%9D%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第九章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DataStructure/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%8D%81%E7%AB%A0%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第十章作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ComputerNetwork/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第三次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E5%9B%9B%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第四次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E4%BA%94%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第五次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E5%85%AD%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第六次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E4%B8%83%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第七次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerNetwork/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AC%AC%E5%85%AB%E6%AC%A1%E4%BD%9C%E4%B8%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第八次作业
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    操作系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第一次实验-进程遍历
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二次实验-进程同步
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第二次实验-进程同步
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 实验内容
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 实验思路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 实验思路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段一 环境配置与内核裁剪
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段二：核心数据结构设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段三：核心逻辑实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段四：编写用户态测试程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 实验过程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 实验过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 内核裁剪与环境配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 搭建系统调用框架
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 核心代码实现
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 核心代码实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-sys_eventopen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1 sys_eventopen 的实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-sys_eventwait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2 sys_eventwait 的实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-sys_eventsig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.3 sys_eventsig 的实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334-sys_eventclose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.4 sys_eventclose 的实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 用户态测试程序
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 用户态测试程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-sync_test1c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.1 测试一：多进程等待单事件 (sync_test1.c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-sync_test2c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.2 测试二：多进程等待多事件 (sync_test2.c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-eventclose-sync_test3c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.3 测试三：eventclose 唤醒测试 (sync_test3.c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#344-sync_test4c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.4 测试四：边缘触发测试 (sync_test4.c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#345-sync_test5c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.5 测试五：释放-重用压力测试 (sync_test5.c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 实验结果
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 实验结果">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 测试一：多进程等待单事件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 测试二：多进程等待多事件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-eventclose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 测试三：eventclose 唤醒测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 测试四：边缘触发测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 测试五：释放-重用压力测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 实验总结与反思
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Database/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库系统原理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据库系统原理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Database/%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关系代数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Database/SQL%E8%AF%AD%E8%A8%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL语言
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../project/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../project/LuoguAgent/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LuoguAgent
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LuoguAgent
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../project/LuoguAgent/%E7%88%AC%E8%99%AB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    爬虫
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../project/LuoguAgent/agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../project/LuoguAgent/streamlit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 实验内容
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 实验思路
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 实验思路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段一 环境配置与内核裁剪
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段二：核心数据结构设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段三：核心逻辑实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段四：编写用户态测试程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 实验过程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 实验过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 内核裁剪与环境配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 搭建系统调用框架
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 核心代码实现
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 核心代码实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-sys_eventopen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1 sys_eventopen 的实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-sys_eventwait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2 sys_eventwait 的实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-sys_eventsig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.3 sys_eventsig 的实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334-sys_eventclose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.4 sys_eventclose 的实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 用户态测试程序
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 用户态测试程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-sync_test1c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.1 测试一：多进程等待单事件 (sync_test1.c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-sync_test2c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.2 测试二：多进程等待多事件 (sync_test2.c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-eventclose-sync_test3c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.3 测试三：eventclose 唤醒测试 (sync_test3.c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#344-sync_test4c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.4 测试四：边缘触发测试 (sync_test4.c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#345-sync_test5c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.5 测试五：释放-重用压力测试 (sync_test5.c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 实验结果
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 实验结果">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 测试一：多进程等待单事件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 测试二：多进程等待多事件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-eventclose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 测试三：eventclose 唤醒测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 测试四：边缘触发测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 测试五：释放-重用压力测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 实验总结与反思
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">操作系统第二次作业</h1>
+<h2 id="1">1. 实验内容</h2>
+<p>本次实验的主要内容是在 Linux 内核中设计并实现一种事件同步屏障原语，允许多个进程在某个事件发生前阻塞，直到其他进程触发该事件。当某个进程触发事件时，所有因该事件阻塞的进程将解除阻塞，如果没有进程被阻塞则不产生任何影响。</p>
+<p>具体要求是实现四个新的系统调用：</p>
+<ul>
+<li><strong><code>sys_eventopen()</code></strong>：用于创建新事件并返回一个全局唯一的事件标识符 (event ID)。</li>
+<li><strong><code>sys_eventwait(int event_id)</code></strong>：用于使当前进程在指定 <code>event_id</code> 上阻塞（睡眠）。</li>
+<li><strong><code>sys_eventsig(int event_id)</code></strong>：用于唤醒所有在指定 <code>event_id</code> 上阻塞的进程。</li>
+<li><strong><code>sys_eventclose(int event_id)</code></strong>：用于销毁事件，并唤醒所有可能仍在该事件上阻塞的进程。</li>
+</ul>
+<p>最后，需要编写用户态测试程序，至少覆盖“多进程等待同一事件”和“多进程多事件并发”两种场景。</p>
+<h2 id="2">2. 实验思路</h2>
+<p>本实验采取分阶段推进的策略，首先搭建和验证环境，然后设计核心数据结构，接着实现系统调用功能，最后编写用户态程序进行测试。</p>
+<h3 id="_2">阶段一 环境配置与内核裁剪</h3>
+<ul>
+<li><strong>环境优化：</strong> 为缩短内核编译的迭代时间，首先对编译环境进行优化。</li>
+<li>使用 <code>make menuconfig</code> 对内核配置进行裁剪，禁用所有与实验无关的模块（如无线、声卡、蓝牙等非必要驱动）。</li>
+<li>安装 <code>ccache</code> 并配置 <code>make CC="ccache gcc"</code>，利用编译缓存实现后续的快速迭代。</li>
+<li><strong>搭建调用框架：</strong> 在 <code>syscall_64.tbl</code>、<code>syscalls.h</code> 和 <code>kernel/sys.c</code> 中注册 <code>eventopen</code>、<code>eventclose</code>、<code>eventwait</code>、<code>eventsig</code> 四个空的系统调用。</li>
+<li><strong>初步验证：</strong> 编写一个简单的用户态程序 <code>test_events_skeleton.c</code> 逐一调用这四个“空壳”函数，并通过 <code>dmesg</code> 确认内核打印了对应信息，确保系统调用的“通路”已全部打通。</li>
+</ul>
+<h3 id="_3">阶段二：核心数据结构设计</h3>
+<ul>
+<li>
+<p><strong>全局管理：</strong> 在 <code>kernel/sys.c</code> 中定义一个全局数组 <code>static struct os_event event_table[MAX_EVENTS]</code> 来管理所有事件。<code>event_id</code> 即为该数组的索引。</p>
+</li>
+<li>
+<p><strong>管程锁（粗粒度）：</strong> 定义一个全局互斥锁 <code>static DEFINE_MUTEX(event_table_lock)</code>。这把锁<strong>只</strong>用于保护 <code>event_table</code> 数组本身，即 <code>in_use</code> 标志的分配与释放，确保槽位操作的原子性。</p>
+</li>
+<li>
+<p><strong>事件结构体（细粒度）：</strong> 为了解决复杂的“释放后重用”(Use-After-Free)竞态条件，设计了包含引用计数和销毁队列的事件结构：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cm">/* 事件结构体 */</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">os_event</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">in_use</span><span class="p">;</span><span class="w">                   </span><span class="c1">// 是否正在使用</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">initialized</span><span class="p">;</span><span class="w">              </span><span class="c1">// 是否已初始化</span>
+
+<span class="w">    </span><span class="n">wait_queue_head_t</span><span class="w"> </span><span class="n">queue</span><span class="p">;</span><span class="w">       </span><span class="c1">// 等待队列</span>
+<span class="w">    </span><span class="n">spinlock_t</span><span class="w"> </span><span class="n">lock</span><span class="p">;</span><span class="w">               </span><span class="c1">// 保护 gen/closing 字段</span>
+
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">gen</span><span class="p">;</span><span class="w">             </span><span class="c1">// 每次当 eventsig 时自增，表示新一轮信号</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">closing</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 表示正在关闭</span>
+
+<span class="w">    </span><span class="n">atomic_t</span><span class="w"> </span><span class="n">waiters</span><span class="p">;</span><span class="w">              </span><span class="c1">// 当前处于等待队列中的线程数</span>
+<span class="w">    </span><span class="n">wait_queue_head_t</span><span class="w"> </span><span class="n">destroy_wq</span><span class="p">;</span><span class="w">  </span><span class="c1">// 用来等待 waiters==0 的队列</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="_4">阶段三：核心逻辑实现</h3>
+<ul>
+<li><strong><code>eventopen</code></strong>：获取全局锁 <code>event_table_lock</code>，遍历查找 <code>in_use == false</code> 的槽位。如果槽位是首次使用 (<code>initialized == false</code>)，则初始化其 <code>queue</code>, <code>lock</code>, <code>destroy_wq</code> 和 <code>waiters</code> 计数器。无论如何，都会重置 <code>gen = 0</code> 和 <code>closing = false</code>，然后释放全局锁。</li>
+<li><strong><code>eventwait</code> </strong>：</li>
+<li>获取全局锁 <code>event_table_lock</code>，检查 <code>in_use</code> 标志。</li>
+<li>在释放全局锁之前，原子地增加引用计数 <code>atomic_inc(&amp;ev-&gt;waiters)</code>。这确保 <code>eventclose</code> 在检查 <code>waiters</code> 时，不会漏掉正在进入等待的本进程。</li>
+<li>释放全局锁。</li>
+<li>获取内部 <code>spinlock</code>，读取当前的 <code>gen</code> 作为快照 <code>mygen</code>。</li>
+<li>调用 <code>wait_event_interruptible</code>，等待 <code>ev-&gt;gen != mygen</code> (被 <code>eventsig</code> 改变) 或 <code>ev-&gt;closing == true</code> (被 <code>eventclose</code> 改变)。</li>
+<li>唤醒后，调用 <code>atomic_dec_and_test(&amp;ev-&gt;waiters)</code>。如果是最后一个退出的等待者 (<code>waiters == 0</code>) 且 <code>eventclose</code> 正在进行 (<code>closing == true</code>)，则负责唤醒在 <code>destroy_wq</code> 上睡眠的 <code>eventclose</code> 进程。</li>
+<li><strong><code>eventsig</code></strong>：获取内部 <code>spinlock</code>，将 <code>gen</code> 计数器加一，然后释放锁。最后调用 <code>wake_up_all(&amp;ev-&gt;queue)</code> 唤醒所有等待者。</li>
+<li><strong><code>eventclose</code> </strong>：</li>
+<li>获取内部 <code>spinlock</code>，设置 <code>closing = true</code>。</li>
+<li>调用 <code>wake_up_all(&amp;ev-&gt;queue)</code> 唤醒所有等待者（它们会检查到 <code>closing == true</code> 而退出）。</li>
+<li>调用 <code>wait_event(ev-&gt;destroy_wq, ...)</code> 在销毁队列上睡眠，直到 <code>waiters</code> 计数器归零。</li>
+<li>被唤醒后（由最后一个 <code>eventwait</code> 进程唤醒），获取全局锁 <code>event_table_lock</code>，安全地将 <code>in_use = false</code>，释放该槽位以供 <code>eventopen</code> 重用。</li>
+</ul>
+<h3 id="_5">阶段四：编写用户态测试程序</h3>
+<ul>
+<li>设计三个测试用例来验证功能的完备性和并发正确性：</li>
+<li><code>sync_test1.c</code>：多进程等待单事件。用于验证基本的“等待-唤醒”功能。</li>
+<li><code>sync_test2.c</code>：多进程等待多事件。用于验证不同事件之间的隔离性。</li>
+<li><code>sync_test3.c</code>：验证 <code>eventclose</code> 也能唤醒正在等待的进程。</li>
+<li><code>sync_test4.c</code>：验证对同一事件的多次重复等待和唤醒。</li>
+<li><code>sync_test5.c</code>：高并发压力测试，验证 <code>eventclose</code> 的引用计数器能正确处理“释放-重用”竞态条件。</li>
+</ul>
+<h2 id="3">3. 实验过程</h2>
+<h3 id="31">3.1 内核裁剪与环境配置</h3>
+<p>为加速内核编译，缩短开发-测试的迭代周期，本次实验对编译环境进行了两项关键优化：内核裁剪与编译缓存。</p>
+<ol>
+<li>
+<p><strong>使用 <code>make menuconfig</code> 裁剪内核</strong></p>
+</li>
+<li>
+<p>在内核源码根目录执行 <code>cp /boot/config-$(uname -r) .config</code>，以一个已知的、可工作的配置为基础。</p>
+</li>
+<li>运行 <code>make menuconfig</code> 进入图形化配置界面。</li>
+<li><strong>裁剪原则：</strong> 实验环境为 VMware 虚拟机，且仅通过 SSH 访问，因此所有物理硬件、非必要的驱动和功能均可禁用。</li>
+<li><strong>主要裁剪项：</strong><ul>
+<li><code>Networking support ---&gt;</code></li>
+<li>禁用 <code>Wireless LAN</code>、<code>Bluetooth subsystem support</code>、<code>NFC subsystem support</code> 等所有无线和非 IP 协议。</li>
+<li>（保留 <code>TCP/IP networking</code> 和 <code>Ethernet driver support</code> 中的 <code>VMware VMXNET3</code> 驱动以保证 SSH 连通性）。</li>
+<li><code>Device Drivers ---&gt;</code></li>
+<li>禁用 <code>Sound card support ---&gt;</code>。</li>
+<li>禁用 <code>Multimedia support ---&gt;</code> (摄像头、电视卡等)。</li>
+<li>禁用 <code>Graphics support ---&gt;</code> 子菜单中除 <code>VMware VMSVGA</code> 和 <code>VGA text console</code> 之外的所有物理显卡驱动 (NVIDIA, AMD, Intel)。</li>
+<li>禁用 <code>USB support ---&gt;</code> (VMware 虚拟机通过 SSH 访问，无需 USB)。</li>
+<li>禁用 <code>File systems ---&gt;</code> 子菜单中除 <code>Ext4</code>（或当前根文件系统类型）之外的所有其他文件系统（如 <code>XFS</code>, <code>Btrfs</code>, <code>NTFS</code>）。</li>
+</ul>
+</li>
+<li>
+<p>裁剪后保存配置，大幅减少了需要编译的模块数量。</p>
+</li>
+<li>
+<p><strong>配置 <code>ccache</code> 编译缓存</strong></p>
+</li>
+<li>
+<p><code>ccache</code> (Compiler Cache) 是一个编译加速工具，它能缓存 <code>.c</code> 文件上一次的编译结果（<code>.o</code> 文件）。当下次编译时，若源文件未更改，<code>ccache</code> 会直接返回缓存的结果，跳过实际的 <code>gcc</code> 编译过程。</p>
+</li>
+<li>
+<p><strong>安装：</strong></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ccache
+</code></pre></div>
+</li>
+<li>
+<p><strong>扩大缓存空间 ：</strong> 内核编译会产生大量缓存，默认空间可能不足。</p>
+<div class="highlight"><pre><span></span><code>ccache<span class="w"> </span>-M<span class="w"> </span>50G<span class="w">  </span><span class="c1"># 将缓存上限设为 50GB</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>使用：</strong> 在调用 <code>make</code> 时，通过 <code>CC</code> 变量指定 <code>ccache</code> 作为 <code>gcc</code> 的“包装器”。</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span><span class="nv">CC</span><span class="o">=</span><span class="s2">&quot;ccache gcc&quot;</span><span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>效果：</strong> 首次编译（填充缓存）依然耗时，但在此后修改代码（如 <code>kernel/sys.c</code>）后再次编译，编译链接时间从2小时缩短到2分钟，极大地提高了调试效率。</p>
+</li>
+</ol>
+<h3 id="32">3.2 搭建系统调用框架</h3>
+<ol>
+<li><strong>修改 <code>arch/x86/entry/syscalls/syscall_64.tbl</code></strong>：</li>
+</ol>
+<p>分配系统调用号。</p>
+<div class="highlight"><pre><span></span><code><span class="m">550</span><span class="w"> </span><span class="m">64</span><span class="w"> </span>eventopen<span class="w">   </span>sys_eventopen
+<span class="m">551</span><span class="w"> </span><span class="m">64</span><span class="w"> </span>eventclose<span class="w">  </span>sys_eventclose
+<span class="m">552</span><span class="w"> </span><span class="m">64</span><span class="w"> </span>eventwait<span class="w">   </span>sys_eventwait
+<span class="m">553</span><span class="w"> </span><span class="m">64</span><span class="w"> </span>eventsig<span class="w">    </span>sys_eventsig
+</code></pre></div>
+<ol>
+<li><strong>修改 <code>include/linux/syscalls.h</code></strong>：</li>
+</ol>
+<p>声明系统调用。</p>
+<div class="highlight"><pre><span></span><code><span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">sys_eventopen</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">sys_eventclose</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">sys_eventwait</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">sys_eventsig</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+</code></pre></div>
+<ol>
+<li><strong>修改 <code>kernel/sys.c</code></strong> ：</li>
+</ol>
+<p>为系统调用添加空壳实现。</p>
+<div class="highlight"><pre><span></span><code><span class="n">SYSCALL_DEFINE0</span><span class="p">(</span><span class="n">eventopen</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;eventopen call</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">SYSCALL_DEFINE1</span><span class="p">(</span><span class="n">eventclose</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;eventclose call</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">SYSCALL_DEFINE1</span><span class="p">(</span><span class="n">eventwait</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;eventwait call</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">SYSCALL_DEFINE1</span><span class="p">(</span><span class="n">eventsig</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;eventsig call</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h3 id="33">3.3 核心代码实现</h3>
+<p><strong>在 <code>kernel/sys.c</code> 顶部添加头文件和全局定义：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* 需要包含的头文件 */</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/wait.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/mutex.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/spinlock.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/errno.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/atomic.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/sched.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/uaccess.h&gt;</span><span class="c1"> // (如果需要与用户空间交互)</span>
+
+<span class="cm">/* 常量 */</span>
+<span class="cp">#define MAX_EVENTS 64</span>
+
+<span class="cm">/* 事件结构体 */</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">os_event</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">in_use</span><span class="p">;</span><span class="w">                   </span><span class="c1">// 是否正在使用</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">initialized</span><span class="p">;</span><span class="w">              </span><span class="c1">// 是否已初始化</span>
+
+<span class="w">    </span><span class="n">wait_queue_head_t</span><span class="w"> </span><span class="n">queue</span><span class="p">;</span><span class="w">       </span><span class="c1">// 等待队列</span>
+<span class="w">    </span><span class="n">spinlock_t</span><span class="w"> </span><span class="n">lock</span><span class="p">;</span><span class="w">               </span><span class="c1">// 保护 gen/closing 字段</span>
+
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">gen</span><span class="p">;</span><span class="w">             </span><span class="c1">// 每次当 eventsig 时自增，表示新一轮信号</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">closing</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 表示正在关闭</span>
+
+<span class="w">    </span><span class="n">atomic_t</span><span class="w"> </span><span class="n">waiters</span><span class="p">;</span><span class="w">              </span><span class="c1">// 当前处于等待队列中的线程数</span>
+<span class="w">    </span><span class="n">wait_queue_head_t</span><span class="w"> </span><span class="n">destroy_wq</span><span class="p">;</span><span class="w">  </span><span class="c1">// 用来等待 waiters==0 的队列</span>
+<span class="p">};</span>
+
+<span class="cm">/* 全局事件表与保护锁 */</span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">os_event</span><span class="w"> </span><span class="n">event_table</span><span class="p">[</span><span class="n">MAX_EVENTS</span><span class="p">];</span>
+<span class="k">static</span><span class="w"> </span><span class="n">DEFINE_MUTEX</span><span class="p">(</span><span class="n">event_table_lock</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="331-sys_eventopen">3.3.1 <code>sys_eventopen</code> 的实现</h4>
+<p><code>eventopen</code> 负责分配一个事件槽位。它使用 <code>event_table_lock</code> 这把粗粒度锁来保证槽位分配的原子性。如果一个槽位是首次被使用 (<code>initialized == false</code>)，它会负责初始化所有底层的同步原语（等待队列、自旋锁、原子计数器）。无论如何，它都会重置事件的逻辑状态（<code>gen</code> 和 <code>closing</code>），为新的使用者做好准备。</p>
+<div class="highlight"><pre><span></span><code><span class="n">SYSCALL_DEFINE0</span><span class="p">(</span><span class="n">eventopen</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MAX_EVENTS</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">event_table</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">in_use</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">event_table</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">in_use</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">            </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">event_table</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">initialized</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">init_waitqueue_head</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">queue</span><span class="p">);</span>
+<span class="w">            </span><span class="n">spin_lock_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">lock</span><span class="p">);</span>
+<span class="w">            </span><span class="n">init_waitqueue_head</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">destroy_wq</span><span class="p">);</span>
+<span class="w">            </span><span class="n">atomic_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">waiters</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">            </span><span class="n">event_table</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">initialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="cm">/* 重置逻辑状态为初始 generation（安全：eventclose 已等 waiters==0 再 set in_use=false） */</span>
+<span class="w">        </span><span class="n">spin_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">lock</span><span class="p">);</span>
+<span class="w">        </span><span class="n">event_table</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">gen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">event_table</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">closing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="n">spin_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table</span><span class="p">[</span><span class="n">id</span><span class="p">].</span><span class="n">lock</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="n">ENOSPC</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="332-sys_eventwait">3.3.2 <code>sys_eventwait</code> 的实现</h4>
+<p><code>eventwait</code> 是最复杂的设计。</p>
+<ol>
+<li>它首先在全局锁 <code>event_table_lock</code> 的保护下检查事件是否存在，并原子地递增 <code>waiters</code> 引用计数。</li>
+<li>递增计数后，它立即释放全局锁，以允许其他进程（如 <code>eventsig</code>）并发执行。</li>
+<li>它使用内部自旋锁 <code>ev-&gt;lock</code> 来安全地读取当前 <code>gen</code> 的快照 <code>mygen</code>。</li>
+<li>它调用 <code>wait_event_interruptible</code> 进入睡眠，等待 <code>gen</code> 发生变化（被 <code>eventsig</code> 触发）或 <code>closing</code> 变为 <code>true</code>（被 <code>eventclose</code> 触发）。</li>
+<li>唤醒后，它原子地递减 <code>waiters</code> 计数。如果是最后一个退出者且 <code>closing</code> 为 <code>true</code>，它负责唤醒正在 <code>destroy_wq</code> 上等待的 <code>eventclose</code> 进程。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">SYSCALL_DEFINE1</span><span class="p">(</span><span class="n">eventwait</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">os_event</span><span class="w"> </span><span class="o">*</span><span class="n">ev</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">flags</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">mygen</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">event_id</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">event_id</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">MAX_EVENTS</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">ev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">event_table</span><span class="p">[</span><span class="n">event_id</span><span class="p">];</span>
+
+<span class="w">    </span><span class="cm">/* 在全局锁下检查是否存在 */</span>
+<span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">in_use</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* 进入等待前计数 */</span>
+<span class="w">    </span><span class="n">atomic_inc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">waiters</span><span class="p">);</span>
+<span class="w">    </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* 读取 snapshot generation（受 spinlock 保护，避免同时修改） */</span>
+<span class="w">    </span><span class="n">spin_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+<span class="w">    </span><span class="n">mygen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">gen</span><span class="p">;</span>
+<span class="w">    </span><span class="n">spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/* 等待直到 generation 发生变化（eventsig）或 closing 被设置 */</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wait_event_interruptible</span><span class="p">(</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">queue</span><span class="p">,</span><span class="w"> </span><span class="p">({</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">cond</span><span class="p">;</span>
+<span class="w">        </span><span class="n">spin_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+<span class="w">        </span><span class="n">cond</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">gen</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">mygen</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">closing</span><span class="p">;</span>
+<span class="w">        </span><span class="n">spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+<span class="w">        </span><span class="n">cond</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}));</span>
+
+<span class="w">    </span><span class="cm">/* 退出时递减 waiters；如果这是最后一个且正在 closing，则通知 destroy_wq */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">atomic_dec_and_test</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">waiters</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">spin_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">closing</span><span class="p">)</span>
+<span class="w">            </span><span class="n">wake_up</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">destroy_wq</span><span class="p">);</span>
+<span class="w">        </span><span class="n">spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="333-sys_eventsig">3.3.3 <code>sys_eventsig</code> 的实现</h4>
+<p><code>eventsig</code> 的实现轻量且高效。它不需要获取全局锁，只在内部 <code>spinlock</code> 的保护下将 <code>gen</code> 计数器加一，然后调用 <code>wake_up_all</code> 唤醒所有在 <code>queue</code> 上等待的进程。</p>
+<div class="highlight"><pre><span></span><code><span class="n">SYSCALL_DEFINE1</span><span class="p">(</span><span class="n">eventsig</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">os_event</span><span class="w"> </span><span class="o">*</span><span class="n">ev</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">flags</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">event_id</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">event_id</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">MAX_EVENTS</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">ev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">event_table</span><span class="p">[</span><span class="n">event_id</span><span class="p">];</span>
+
+<span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">in_use</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/* 增加 generation（受锁保护），然后 wake_up_all */</span>
+<span class="w">    </span><span class="n">spin_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">gen</span><span class="o">++</span><span class="p">;</span><span class="w">   </span><span class="cm">/* 每次 signal 都自增 generation */</span>
+<span class="w">    </span><span class="n">spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">wake_up_all</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">queue</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="334-sys_eventclose">3.3.4 <code>sys_eventclose</code> 的实现</h4>
+<p><code>eventclose</code> 是确保“释放后重用”安全的关键。</p>
+<ol>
+<li>它首先设置 <code>closing = true</code> 并唤醒所有等待者。</li>
+<li>然后，它不会立即释放槽位，而是调用 <code>wait_event</code> 在 <code>destroy_wq</code> 上睡眠。</li>
+<li>它会一直在此睡眠，直到最后一个 <code>eventwait</code> 进程退出并唤醒它。</li>
+<li>被唤醒后，<code>eventclose</code> 才获取全局锁 <code>event_table_lock</code>，并安全地将 <code>in_use = false</code>，此时槽位才被真正释放。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">SYSCALL_DEFINE1</span><span class="p">(</span><span class="n">eventclose</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">os_event</span><span class="w"> </span><span class="o">*</span><span class="n">ev</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">flags</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">event_id</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">event_id</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">MAX_EVENTS</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">ev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">event_table</span><span class="p">[</span><span class="n">event_id</span><span class="p">];</span>
+
+<span class="w">    </span><span class="cm">/* 检查并标记为正在关闭（不立即清 in_use） */</span>
+<span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">in_use</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/* 标记 closing 并唤醒所有等待者 */</span>
+<span class="w">    </span><span class="n">spin_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">closing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="n">spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">wake_up_all</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">queue</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/* 等待所有等待者离开（waiters==0），eventwait 在最后会 wake_up destroy_wq */</span>
+<span class="w">    </span><span class="n">wait_event</span><span class="p">(</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">destroy_wq</span><span class="p">,</span><span class="w"> </span><span class="n">atomic_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">waiters</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/* 现在没有任何线程依赖此槽位，可以安全释放 in_use */</span>
+<span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">in_use</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ev</span><span class="o">-&gt;</span><span class="n">closing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 复位 closing（optional: 保留 initialized） */</span>
+<span class="w">    </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_table_lock</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="34">3.4 用户态测试程序</h3>
+<p>为了验证上述内核实现的正确性和健壮性，设计了以下五个测试程序。</p>
+<h4 id="341-sync_test1c">3.4.1 测试一：多进程等待单事件 (sync_test1.c)</h4>
+<p>此测试用于验证基本功能：多个子进程（5个）同时等待同一个事件，父进程在 <code>sleep(3)</code> 后调用 <code>eventsig</code>，验证所有子进程是否能被同时唤醒。</p>
+<div class="highlight"><pre><span></span><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/syscall.h&gt;
+#include &lt;sys/wait.h&gt;
+#include &lt;errno.h&gt;
+
+#define SYS_eventopen 550
+#define sys_eventclose 551
+#define sys_eventwait 552
+#define sys_eventsig 553
+
+#define NUM_CHILDREN 5
+
+int main() {
+    long event_id;
+    int i;
+    pid_t pid;
+
+    printf(&quot;(2723)[Parent] 正在创建新事件...\n&quot;);
+    event_id = syscall(SYS_eventopen);
+    if (event_id &lt; 0) {
+        perror(&quot;syscall(eventopen) 失败&quot;);
+        return 1;
+    }
+    printf(&quot;(2723)[Parent] 事件创建成功, ID: %ld\n&quot;, event_id);
+
+    for (i = 0; i &lt; NUM_CHILDREN; i++) {
+        pid = fork();
+        if (pid &lt; 0) {
+            perror(&quot;fork 失败&quot;);
+            return 1;
+        }
+        if (pid == 0) {
+            printf(&quot;(2723)[Child %d] 正在等待事件 %ld...\n&quot;, getpid(), event_id);
+            long ret = syscall(sys_eventwait, event_id);
+            if (ret == 0) {
+                printf(&quot;(2723)[Child %d] 成功从事件 %ld 唤醒！\n&quot;, getpid(), event_id);
+            } else {
+                perror(&quot;(2723)[Child] eventwait 失败\n&quot;);
+            }
+            exit(0);
+        }
+    }
+
+    printf(&quot;(2723)[parent] 等待3秒，确保所有子进程都已进入睡眠...\n&quot;);
+    sleep(3);
+
+    printf(&quot;(2723)[Parent] 正在发送信号(eventsig)到事件 %ld...\n&quot;, event_id);
+    syscall(sys_eventsig, event_id);
+
+    for (i = 0; i &lt; NUM_CHILDREN; i++) {
+        wait(NULL);
+    }
+    printf(&quot;(2723)[Parent] 所有子进程已退出。\n&quot;);
+
+    syscall(sys_eventclose, event_id);
+    printf(&quot;(2723)[Parent] 事件 %ld 已关闭。\n&quot;, event_id);
+
+    return 0;
+}
+</code></pre></div>
+<h4 id="342-sync_test2c">3.4.2 测试二：多进程等待多事件 (sync_test2.c)</h4>
+<p>此测试用于验证事件的隔离性。创建三个子进程，分别等待三个不同的事件 (A, B, C)。父进程依次唤醒 B、C、A，验证每次 <code>eventsig</code> 只唤醒了对应事件上的进程。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/syscall.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;errno.h&gt;</span>
+
+<span class="cp">#define SYS_eventopen 550</span>
+<span class="cp">#define SYS_eventclose 551</span>
+<span class="cp">#define SYS_eventwait 552</span>
+<span class="cp">#define SYS_eventsig 553</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">wait_for_event</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">event_id</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">event_name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Child %d] 正在等待事件 %s (ID: %d)...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">event_name</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventwait</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Child %d] 成功从事件 %s (ID: %d) 唤醒!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">event_name</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">&quot;(2723)[Child] eventwait 失败&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">event_A</span><span class="p">,</span><span class="w"> </span><span class="n">event_B</span><span class="p">,</span><span class="w"> </span><span class="n">event_C</span><span class="p">;</span>
+<span class="w">    </span><span class="n">event_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventopen</span><span class="p">);</span>
+<span class="w">    </span><span class="n">event_B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventopen</span><span class="p">);</span>
+<span class="w">    </span><span class="n">event_C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventopen</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 创建了三个事件: A=%ld, B=%ld, C=%ld&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">event_A</span><span class="p">,</span><span class="w"> </span><span class="n">event_B</span><span class="p">,</span><span class="w"> </span><span class="n">event_C</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">wait_for_event</span><span class="p">(</span><span class="n">event_A</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;A&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">wait_for_event</span><span class="p">(</span><span class="n">event_B</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">wait_for_event</span><span class="p">(</span><span class="n">event_C</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 等待3秒，确保所有子进程进入睡眠...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 正在发送信号(eventsig)到事件B(ID: %ld)...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">event_B</span><span class="p">);</span>
+<span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventsig</span><span class="p">,</span><span class="w"> </span><span class="n">event_B</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] ---------------------------------------</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 正在发送信号(eventsig)到事件C(ID: %ld)...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">event_C</span><span class="p">);</span>
+<span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventsig</span><span class="p">,</span><span class="w"> </span><span class="n">event_C</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] ---------------------------------------</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 正在发送信号(eventsig)到事件A(ID: %ld)...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">event_A</span><span class="p">);</span>
+<span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventsig</span><span class="p">,</span><span class="w"> </span><span class="n">event_A</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 所有子进程已退出。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventclose</span><span class="p">,</span><span class="w"> </span><span class="n">event_A</span><span class="p">);</span>
+<span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventclose</span><span class="p">,</span><span class="w"> </span><span class="n">event_B</span><span class="p">);</span>
+<span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventclose</span><span class="p">,</span><span class="w"> </span><span class="n">event_C</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 所有事件已关闭。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="343-eventclose-sync_test3c">3.4.3 测试三：<code>eventclose</code> 唤醒测试 (sync_test3.c)</h4>
+<p>此测试用于验证 <code>eventclose</code> 的唤醒功能。父进程不调用 <code>eventsig</code>，而是直接调用 <code>eventclose</code>，验证所有正在等待的子进程是否被正确唤醒（它们会检查到 <code>closing == true</code>）。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/syscall.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;errno.h&gt;</span>
+
+<span class="cp">#define SYS_eventopen 550</span>
+<span class="cp">#define SYS_eventclose 551</span>
+<span class="cp">#define SYS_eventwait 552</span>
+<span class="cp">#define SYS_eventsig 553</span>
+
+<span class="cp">#define NUM_CHILDREN 3</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">event_id</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 正在创建新事件...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">event_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventopen</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">event_id</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">&quot;syscall(eventopen) failed.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 事件创建成功，ID: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NUM_CHILDREN</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Child %d] 正在等待事件 %ld...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventwait</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Child %d] 成功从事件 %ld 唤醒 (被close唤醒?)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Child %d] eventwait 返回 %ld, 可能是被 close 中断</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 等待3秒，确保所有子进程都已进入睡眠...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 正在关闭(eventclose)事件 %ld 来唤醒子进程...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventclose</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NUM_CHILDREN</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 所有子进程已退出。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 测试完成。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="344-sync_test4c">3.4.4 测试四：边缘触发测试 (sync_test4.c)</h4>
+<p>此测试用于验证 <code>gen</code> 计数器实现的“边缘触发”特性。子进程在一个循环中调用 <code>eventwait</code> 5次；父进程也必须在循环中调用 <code>eventsig</code> 5次，每次 <code>eventsig</code> 递增 <code>gen</code>，才能让子进程完成一次循环。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/syscall.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;errno.h&gt;</span>
+
+<span class="cp">#define SYS_eventopen 550</span>
+<span class="cp">#define SYS_eventclose 551</span>
+<span class="cp">#define SYS_eventwait 552</span>
+<span class="cp">#define SYS_eventsig 553</span>
+
+<span class="cp">#define LOOP_COUNT 5</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">event_id</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 正在创建新事件...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">event_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventopen</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 事件创建成功，ID: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// --- 子进程逻辑 ---</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">LOOP_COUNT</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Child %d] 正在等待事件 %ld (第 %d/%d 次)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">                   </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">event_id</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">LOOP_COUNT</span><span class="p">);</span>
+
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventwait</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span><span class="w"> </span><span class="c1">// 等待</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">perror</span><span class="p">(</span><span class="s">&quot;(2723)[Child] eventwait 失败&quot;</span><span class="p">);</span>
+<span class="w">                </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Child %d] 成功从事件 %ld 唤醒 (第 %d/%d 次)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">                   </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">event_id</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">LOOP_COUNT</span><span class="p">);</span>
+<span class="w">            </span><span class="c1">// 唤醒后不退出，而是循环回去再次等待</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Child %d] 循环完成，正在退出。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">());</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// --- 子进程结束 ---</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// --- 父进程逻辑 ---</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 等待 2 秒让子进程进入睡眠...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">LOOP_COUNT</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 正在发送信号 (eventsig) 到事件 %ld (第 %d/%d 次)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="n">event_id</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">LOOP_COUNT</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventsig</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span><span class="w"> </span><span class="c1">// 每次循环都发一个信号</span>
+
+<span class="w">        </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// 给子进程一点时间去循环并再次睡眠</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span><span class="w"> </span><span class="c1">// 等待子进程退出</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 子进程已退出。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventclose</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Parent] 事件 %ld 已关闭。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">event_id</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="345-sync_test5c">3.4.5 测试五：释放-重用压力测试 (sync_test5.c)</h4>
+<p>此测试用于验证 <code>atomic_t waiters</code> 引用计数和 <code>destroy_wq</code> 机制的健壮性。</p>
+<ol>
+<li>首先填满全部 64 个事件槽位。</li>
+<li>启动一个“慢等待者”线程 (<code>slow_waiter</code>) 在 <code>ID: 0</code> 上睡眠。</li>
+<li>启动一个“关闭者”线程 (<code>closer</code>) 调用 <code>eventclose(0)</code>。</li>
+<li><code>closer</code> 会阻塞在 <code>destroy_wq</code> 上，等待 <code>waiters</code> 归零。</li>
+<li>主线程 (<code>main</code>) 此时疯狂循环调用 <code>eventopen</code>。</li>
+<li>预期 <code>main</code> 线程会一直失败 (返回 <code>-ENOSPC</code>)，直到 <code>slow_waiter</code> 退出、<code>closer</code> 返回、<code>ID: 0</code> 的 <code>in_use</code> 最终被设为 <code>false</code> 后，<code>eventopen</code> 才能成功。</li>
+<li>此测试使用 <code>pthread</code> 库，编译时需链接 <code>-lpthread</code>。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/syscall.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;errno.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
+
+<span class="cp">#define SYS_eventopen 550</span>
+<span class="cp">#define SYS_eventclose 551</span>
+<span class="cp">#define SYS_eventwait 552</span>
+<span class="cp">#define SYS_eventsig 553</span>
+
+<span class="c1">// 你的内核中的 MAX_EVENTS</span>
+<span class="cp">#define KERNEL_MAX_EVENTS 64 </span>
+
+<span class="kt">long</span><span class="w"> </span><span class="n">event_id_to_test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 我们将专门测试 ID 0</span>
+
+<span class="c1">// 线程 1：缓慢的等待者</span>
+<span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">slow_waiter</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;[Waiter] 线程启动，准备等待事件 %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">event_id_to_test</span><span class="p">);</span>
+<span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventwait</span><span class="p">,</span><span class="w"> </span><span class="n">event_id_to_test</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;[Waiter] 刚刚被唤醒 (被 close 唤醒)。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;[Waiter] 模拟一些清理工作... (睡眠 2 秒)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 模拟在退出 eventwait 后仍持有锁或资源</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;[Waiter] 清理工作完成，线程退出。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 线程 2：关闭者</span>
+<span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">closer</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 等待 waiter 先进入睡眠</span>
+<span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Closer] 线程启动，准备关闭事件 %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">event_id_to_test</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventclose</span><span class="p">,</span><span class="w"> </span><span class="n">event_id_to_test</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Closer] eventclose 调用返回 (ret=%ld)。这应该在 Waiter 退出后才发生。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">waiter_tid</span><span class="p">,</span><span class="w"> </span><span class="n">closer_tid</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">event_ids</span><span class="p">[</span><span class="n">KERNEL_MAX_EVENTS</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// --- 步骤 1: 填满所有事件槽位 ---</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Main] 正在填满所有 %d 个事件槽位...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">KERNEL_MAX_EVENTS</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">KERNEL_MAX_EVENTS</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">event_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventopen</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">event_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">perror</span><span class="p">(</span><span class="s">&quot;(2723)[Main] eventopen 失败，无法填满 table&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Main] 所有 %d 个槽位已占满 (0 到 %d)。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">KERNEL_MAX_EVENTS</span><span class="p">,</span><span class="w"> </span><span class="n">KERNEL_MAX_EVENTS</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 我们选择第一个事件 ID (即 0) 来进行测试</span>
+<span class="w">    </span><span class="n">event_id_to_test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">event_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="w">    </span><span class="c1">// --- 步骤 2 &amp; 3: 启动 Waiter 和 Closer ---</span>
+<span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">waiter_tid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">slow_waiter</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">closer_tid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">closer</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 等待 Closer 线程启动 (Closer 自己会 sleep 1s, 所以 0.1s 足够)</span>
+<span class="w">    </span><span class="n">usleep</span><span class="p">(</span><span class="mi">100000</span><span class="p">);</span><span class="w"> </span><span class="c1">// 0.1 秒</span>
+
+<span class="w">    </span><span class="c1">// --- 步骤 4: 主线程 (Churner) 开始疯狂尝试重用 ---</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Main] Closer 已启动。Main 线程开始循环尝试 eventopen...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">attempts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">attempts</span><span class="o">++</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// 尝试打开新事件。我们希望它失败，直到 closer 线程完成。</span>
+<span class="w">        </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventopen</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// -ENOSPC (或 -ENOMEM) 是我们期望的</span>
+<span class="w">            </span><span class="c1">// 这证明 eventclose 仍在阻塞，event_table[0].in_use 仍为 true</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">attempts</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">500000</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 调高打印频率</span>
+<span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Main] 第 %d 次 eventopen 失败 (errno: %d)。这是正常的。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">attempts</span><span class="p">,</span><span class="w"> </span><span class="n">errno</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 成功了！</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">(2723)[Main] *** 成功在 %d 次尝试后打开了新事件 ID %ld ***</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">attempts</span><span class="p">,</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Main] 这应该在 Closer 和 Waiter 都退出后才发生。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// --- 清理 ---</span>
+<span class="w">    </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">waiter_tid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">closer_tid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 关闭我们新打开的事件</span>
+<span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventclose</span><span class="p">,</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 关闭其他所有占位的事件 (ID 1 到 63)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">KERNEL_MAX_EVENTS</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">syscall</span><span class="p">(</span><span class="n">SYS_eventclose</span><span class="p">,</span><span class="w"> </span><span class="n">event_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(2723)[Main] 测试完成。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="4">4. 实验结果</h2>
+<p>以下是五个测试程序的实际运行输出结果。</p>
+<h3 id="41">4.1 测试一：多进程等待单事件</h3>
+<p>测试 <code>sync_test1.c</code>，父进程 <code>eventsig</code> 成功唤醒了所有 5 个正在等待的子进程。</p>
+<div class="highlight"><pre><span></span><code>(2723)[Parent] 正在创建新事件...
+(2723)[Parent] 事件创建成功, ID: 0
+(2723)[Child 3070] 正在等待事件 0...
+(2723)[Child 3071] 正在等待事件 0...
+(2723)[parent] 等待3秒，确保所有子进程都已进入睡眠...
+(2723)[Child 3073] 正在等待事件 0...
+(2723)[Child 3072] 正在等待事件 0...
+(2723)[Child 3074] 正在等待事件 0...
+(2723)[Parent] 正在发送信号(eventsig)到事件 0...
+(2723)[Child 3074] 成功从事件 0 唤醒！
+(2723)[Child 3071] 成功从事件 0 唤醒！
+(2723)[Child 3072] 成功从事件 0 唤醒！
+(2723)[Child 3073] 成功从事件 0 唤醒！
+(2723)[Child 3070] 成功从事件 0 唤醒！
+(2723)[Parent] 所有子进程已退出。
+(2723)[Parent] 事件 0 已关闭。
+</code></pre></div>
+<h3 id="42">4.2 测试二：多进程等待多事件</h3>
+<p>测试 <code>sync_test2.c</code>，父进程对 B、C、A 的 <code>eventsig</code> 调用，精确地、依次唤醒了各自事件上的等待者，证明了事件的隔离性。</p>
+<div class="highlight"><pre><span></span><code>(2723)[Parent] 创建了三个事件: A=0, B=1, C=2(2723)[Child 3143] 正在等待事件 A (ID: 0)...
+(2723)[Parent] 创建了三个事件: A=0, B=1, C=2(2723)[Child 3144] 正在等待事件 B (ID: 1)...
+(2723)[Parent] 创建了三个事件: A=0, B=1, C=2(2723)[Parent] 等待3秒，确保所有子进程进入睡眠...
+(2723)[Parent] 创建了三个事件: A=0, B=1, C=2(2723)[Child 3145] 正在等待事件 C (ID: 2)...
+(2723)[Parent] 正在发送信号(eventsig)到事件B(ID: 1)...
+(2723)[Child 3144] 成功从事件 B (ID: 1) 唤醒!
+(2723)[Parent] ---------------------------------------
+(2723)[Parent] 正在发送信号(eventsig)到事件C(ID: 2)...
+(2723)[Child 3145] 成功从事件 C (ID: 2) 唤醒!
+(2723)[Parent] ---------------------------------------
+(2723)[Parent] 正在发送信号(eventsig)到事件A(ID: 0)...
+(2723)[Child 3143] 成功从事件 A (ID: 0) 唤醒!
+(2723)[Parent] 所有子进程已退出。
+(2723)[Parent] 所有事件已关闭。
+</code></pre></div>
+<h3 id="43-eventclose">4.3 测试三：<code>eventclose</code> 唤醒测试</h3>
+<p>测试 <code>sync_test3.c</code>，父进程直接调用 <code>eventclose</code>，所有正在等待的子进程被成功唤醒，证明 <code>eventclose</code> 满足了“通知所有被阻塞进程”的要求。</p>
+<div class="highlight"><pre><span></span><code>(2723)[Parent] 正在创建新事件...
+(2723)[Parent] 事件创建成功，ID: 0
+(2723)[Child 3236] 正在等待事件 0...
+(2723)[Parent] 等待3秒，确保所有子进程都已进入睡眠...
+(2723)[Child 3237] 正在等待事件 0...
+(2723)[Child 3238] 正在等待事件 0...
+(2723)[Parent] 正在关闭(eventclose)事件 0 来唤醒子进程...
+(2723)[Child 3236] 成功从事件 0 唤醒 (被close唤醒?)
+(2723)[Child 3237] 成功从事件 0 唤醒 (被close唤醒?)
+(2723)[Child 3238] 成功从事件 0 唤醒 (被close唤醒?)
+(2723)[Parent] 所有子进程已退出。
+(2723)[Parent] 测试完成。
+</code></pre></div>
+<h3 id="44">4.4 测试四：边缘触发测试</h3>
+<p>测试 <code>sync_test4.c</code>，父进程的 5 次 <code>eventsig</code> 调用，对应了子进程的 5 次 <code>eventwait</code> 唤醒和循环，证明了 <code>gen</code> 计数器实现的边缘触发逻辑正确。</p>
+<div class="highlight"><pre><span></span><code>(2723)[Parent] 正在创建新事件...
+(2723)[Parent] 事件创建成功，ID: 0
+(2723)[Parent] 等待 2 秒让子进程进入睡眠...
+(2723)[Child 3298] 正在等待事件 0 (第 1/5 次)
+(2723)[Parent] 正在发送信号 (eventsig) 到事件 0 (第 1/5 次)
+(2723)[Child 3298] 成功从事件 0 唤醒 (第 1/5 次)
+(2723)[Child 3298] 正在等待事件 0 (第 2/5 次)
+(2723)[Parent] 正在发送信号 (eventsig) 到事件 0 (第 2/5 次)
+(2723)[Child 3298] 成功从事件 0 唤醒 (第 2/5 次)
+(2723)[Child 3298] 正在等待事件 0 (第 3/5 次)
+(2723)[Parent] 正在发送信号 (eventsig) 到事件 0 (第 3/5 次)
+(2723)[Child 3298] 成功从事件 0 唤醒 (第 3/5 次)
+(2723)[Child 3298] 正在等待事件 0 (第 4/5 次)
+(2723)[Parent] 正在发送信号 (eventsig) 到事件 0 (第 4/5 次)
+(2723)[Child 3298] 成功从事件 0 唤醒 (第 4/5 次)
+(2723)[Child 3298] 正在等待事件 0 (第 5/5 次)
+(2723)[Parent] 正在发送信号 (eventsig) 到事件 0 (第 5/5 次)
+(2723)[Child 3298] 成功从事件 0 唤醒 (第 5/5 次)
+(2723)[Child 3298] 循环完成，正在退出。
+(2723)[Parent] 子进程已退出。
+(2723)[Parent] 事件 0 已关闭。
+</code></pre></div>
+<h3 id="45-">4.5 测试五：释放-重用压力测试</h3>
+<p>测试 <code>sync_test5.c</code>，主线程在 2 秒多的时间内 <code>eventopen</code> 失败了超过 160 万次，直到 <code>slow_waiter</code> 线程退出、<code>closer</code> 线程返回后，<code>eventopen</code> 才成功拿到 <code>ID: 0</code>。这证明了 <code>atomic_t waiters</code> 和 <code>destroy_wq</code> 机制成功阻塞了 <code>eventclose</code>，避免了“释放后重用”的竞态条件。</p>
+<div class="highlight"><pre><span></span><code>(2723)[Main] 正在填满所有 64 个事件槽位...
+(2723)[Main] 所有 64 个槽位已占满 (0 到 63)。
+[Waiter] 线程启动，准备等待事件 0
+(2723)[Main] Closer 已启动。Main 线程开始循环尝试 eventopen...
+(2723)[Main] 第 500000 次 eventopen 失败 (errno: 28)。这是正常的。
+(2723)[Main] 第 1000000 次 eventopen 失败 (errno: 28)。这是正常的。
+(2723)[Main] 第 1500000 次 eventopen 失败 (errno: 28)。这是正常的。
+(2723)[Closer] 线程启动，准备关闭事件 0
+[Waiter] 刚刚被唤醒 (被 close 唤醒)。
+[Waiter] 模拟一些清理工作... (睡眠 2 秒)
+(2723)[Closer] eventclose 调用返回 (ret=0)。这应该在 Waiter 退出后才发生。
+
+(2723)[Main] *** 成功在 1609364 次尝试后打开了新事件 ID 0 ***
+(2723)[Main] 这应该在 Closer 和 Waiter 都退出后才发生。
+[Waiter] 清理工作完成，线程退出。
+(2723)[Main] 测试完成。
+</code></pre></div>
+<h2 id="5">5. 实验总结与反思</h2>
+<p>本次实验在实现进程同步原语的过程中，遇到了多个在课上讨论过的并发问题，这些调试经历是本次实验最大的收获。</p>
+<p>最初的探索是关于内核编译的。为了加速开发迭代，本次实验尝试了 <code>make localmodconfig</code> 和 <code>make menuconfig</code> 来裁剪内核。但过于激进的裁剪（如禁用了 <code>VMware PVSCSI</code> 驱动）导致了 <code>(initramfs)</code> 启动失败。通过 GRUB 菜单切换回 <code>...-generic</code> 内核才得以恢复，这让我深刻理解到内核对底层硬件驱动的依赖性。最终，通过 <code>ccache</code> 编译缓存和针对性的 <code>menuconfig</code>（仅禁用非必要外设，保留核心驱动）相结合，实现了开发效率的平衡。</p>
+<p>在实现系统调用逻辑时，第一个挑战是“丢失的唤醒” (Lost Wakeup)。最初的 <code>eventwait</code> 设计是基于 <code>schedule()</code> 的简单睡眠，这导致 <code>eventsig</code> 的 <code>wake_up_all</code> 在 <code>eventwait</code> 进程加入等待队列之前就已执行，进程因此永久睡眠。为了修复这个竞态条件，引入了 <code>bool signaled</code> 标志和 <code>wait_event_interruptible</code> 宏，实现了“条件变量”模式。<code>wait_event_interruptible</code> 宏原子地检查条件和进入睡眠，彻底解决了这个Bug。</p>
+<p>然而，<code>signaled</code> 标志又引入了新的竞态条件，即 <code>eventclose</code> 和 <code>eventopen</code> 之间对 <code>signaled</code> 标志的重置冲突。为了解决这个问题，将 <code>signaled</code> 升级为 <code>unsigned long gen</code> 计数器，实现了边缘触发。</p>
+<p>最大的挑战来自于 <code>eventclose</code>。<code>eventclose</code> 必须唤醒所有等待者，并安全释放槽位。如果 <code>eventclose</code> 立即释放 <code>in_use = false</code>，另一个 <code>eventopen</code> 进程就可能重用这个槽位，并重置它的同步原语（如 <code>gen</code> 计数器）。而此时，被 <code>eventclose</code> 唤醒的旧进程可能才刚被调度，它们在检查 <code>gen</code> 或 <code>closing</code> 标志时，会读到被新进程重置的脏数据，导致再次睡眠或崩溃。这是一个典型的“释放后重用”竞态条件。最终的解决方案是引入了 <code>atomic_t waiters</code> 引用计数器和 <code>wait_queue_head_t destroy_wq</code> 销毁队列。<code>eventwait</code> 在进入时 <code>atomic_inc</code>，退出时 <code>atomic_dec</code>；<code>eventclose</code> 则必须阻塞在 <code>destroy_wq</code> 上，直到 <code>waiters</code> 归零，才被最后一个退出的 <code>eventwait</code> 进程唤醒，并最终安全地释放槽位。压力测试（<code>sync_test5.c</code>）中 <code>eventopen</code> 失败了 160 万次，也证明了这一机制的健壮性。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 Wuuuk | wuyukai@bupt.edu.cn
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="mailto:wuyukai@bupt.edu.cn" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.top", "navigation.tabs", "navigation.indexes", "serach.hightlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
