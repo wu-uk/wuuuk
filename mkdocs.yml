@@ -55,6 +55,9 @@ nav:
       - index: course/OperatingSystem/index.md
       - 第一次实验-进程遍历: course/OperatingSystem/操作系统第一次实验.md
       - 第二次实验-进程同步: course/OperatingSystem/操作系统第二次实验.md
+    - 数据库系统原理:
+      - index: course/Database/index.md
+      - SQL语言: course/Database/SQL语言.md
   - 项目:
     - index: project/index.md
     - LuoguAgent:
@@ -62,6 +65,7 @@ nav:
       - 爬虫: project/LuoguAgent/爬虫.md
       - Agent: project/LuoguAgent/agent.md
       - 前端: project/LuoguAgent/streamlit.md
+    
 
 markdown_extensions:
   # 启用公式支持
