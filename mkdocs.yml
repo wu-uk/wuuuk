@@ -66,6 +66,9 @@ nav:
       - 爬虫: project/LuoguAgent/爬虫.md
       - Agent: project/LuoguAgent/agent.md
       - 前端: project/LuoguAgent/streamlit.md
+  - 随笔:
+    - index: sketches/index.md
+    - 2025-12-7: sketches/2025-12-7.md
     
 
 markdown_extensions:
